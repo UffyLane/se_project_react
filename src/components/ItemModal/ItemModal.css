@@ -1,0 +1,22 @@
+.item-modal__close {
+    background-image: url(../../assets/close-button-white.png);
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 22px;
+  right: 28px;
+  padding: 16px;
+  padding-left: inherit;
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (max-width: 630px) {
+    .item-modal__close {
+        width: 21px;
+        height: 21px;
+        right: 16px;
+    }
+}

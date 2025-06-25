@@ -1,0 +1,201 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 32px 0 28px;
+}
+
+.header__logo {
+  margin-right: 24px;
+}
+
+.header__date-and-location {
+  margin: 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.header__add-clothes-btn {
+  margin: 0 20px 0 auto;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+.header__user-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__username {
+  margin: 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+letter-spacing: 0%;
+
+}
+
+.mobile__user-container {
+  display: none;
+}
+
+.mobile-menu {
+  display: flex;
+  justify-content: end;
+  flex-grow: 1;
+}
+
+.header__mobile-content{
+  display: flex;
+}
+
+
+@media screen and (max-width: 638px) {
+  .header {
+    display: grid;
+    max-width: 100%;
+    gap: 30px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .mobile__user-container {
+    position: absolute;
+    background-color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    display: block;
+    right: 27px;
+    top: 45px;
+    z-index: 11;
+  }
+
+  .mobile__user-container_opened {
+    border: none;
+    box-shadow: none;
+    background-image: url(../../assets/close-button.png);
+    background-repeat: no-repeat;
+    height: 21px;
+    width: 21px;
+  }
+
+  .header-mobile__menu-1::before,
+  .header-mobile__menu-1::after {
+    content: "";
+    position: absolute;
+    bottom: 14px;
+    width: 28px;
+    height: 2px;
+    background-color: #333;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .header-mobile__menu-1:active:before {
+    transform: translate(-50%) rotate(-45deg);
+  }
+
+  .header-mobile__menu-1:active:after {
+    transform: translate(-50%) rotate(-45deg);
+  }
+
+  .header-mobile__menu-2::before,
+  .header-mobile__menu-2::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    width: 28px;
+    height: 2px;
+    background-color: #333;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .header-mobile__menu-2:active:before {
+    transform: translate(-50%, -50%);
+  }
+
+  .header-mobile__menu-2:active:after {
+    transform: translate(-50%) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-menu_opened {
+    padding-top: 18px;
+    left: 0;
+    position: absolute;
+    top: 18px;
+    background: #fff;
+    z-index: 10;
+    width:100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .header__mobile-content{
+    padding: 60px 0;
+    flex-direction: column-reverse;
+    align-items: center;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 90px;
+    font-family: Cabinet Grotesk;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    width: calc(100% - 45px);
+ 
+
+  }
+
+  .header__date-and-location {
+    font-family: "Cabinet Grotesk", Arial, sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    left: 16px;
+  }
+
+  .header__logo {
+  }
+
+  .header__add-clothes-btn {
+    position: absolute;
+    align-self: center;
+    bottom: 60px;
+    top: 124px;
+    z-index: 11;
+    font-family: Cabinet Grotesk;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0%;
+  }
+
+  .header__user-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 343px;
+    height: 100px;
+    flex-wrap: wrap;
+    align-content: space-between;
+  }
+}
