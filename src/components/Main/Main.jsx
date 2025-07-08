@@ -1,6 +1,6 @@
-import WeatherCard from "../components/WeatherCard/WeatherCard";
-import ItemCard from "../components/ItemCard/ItemCard";
-import { defaultClothingItems } from "../utils/constants";
+import WeatherCard from "../WeatherCard/WeatherCard";
+import ItemCard from "../ItemCard/ItemCard";
+import { defaultClothingItems } from "../../utils/constants";
 import "./Main.css";
 
 function Main({ weatherData ,handleCardClick}) {
