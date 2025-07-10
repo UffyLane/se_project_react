@@ -25,13 +25,13 @@ function App() {
 
   const weatherTypes = ["Hot", "Warm", "Cold"];
 
-const handleRadioChange = (index) => {
-  setActiveRadioIndex(index);
-  setWeatherData((prev) => ({
-    ...prev,
-    type: weatherTypes[index],
-  }));
-};
+  const handleRadioChange = (index) => {
+    setActiveRadioIndex(index);
+    setWeatherData((prev) => ({
+      ...prev,
+      type: weatherTypes[index],
+    }));
+  };
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -40,6 +40,23 @@ const handleRadioChange = (index) => {
   const closeActiveModal = () => {
     setActiveModal("");
   };
+  useEffect(() => {
+    if (!activeModal) return; // stop the effect not to add the listener if there is no active modal
+
+    const handleEscClose = (e) => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      // don't forget to add a clean up function for removing the listener
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]); // watch activeModal here
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -55,12 +72,12 @@ const handleRadioChange = (index) => {
       <div className="page__content">
         <Header handleAddClick={handleAddClick} weatherData={weatherData} />
         <Main weatherData={weatherData} handleCardClick={handleCardClick} />
-        <Footer/>
+        <Footer />
       </div>
       <ModalWithForm
         title="New garment"
         buttonText="Add garment"
-        activeModal={activeModal}
+        isOpen={activeModal === "add-garment"}
         onClose={closeActiveModal}
       >
         <label htmlFor="name" className="modal__label">
@@ -85,34 +102,33 @@ const handleRadioChange = (index) => {
             placeholder="Image URL"
             required
           />
-           <span class="modal__error" id="modal__label-input-error"></span>
+          <span class="modal__error" id="modal__label-input-error"></span>
         </label>
         <fieldset className="modal__radio-buttons">
-  <legend className="modal__legend">Select the weather type:</legend>
-  <div className="modal__radio-input-container">
-    {weatherTypes.map((label, index) => {
-      const id = `weather-${label.toLowerCase()}`;
-      return (
-        <label
-          key={id}
-          htmlFor={id}
-          className="modal__label_type_radio"
-        >
-          <input
-            type="radio"
-            id={id}
-            name="weather"
-            className="radio modal__radio-input"
-            checked={activeRadioIndex === index}
-            onChange={() => handleRadioChange(index)}
-          />
-          {label}
-        </label>
-      );
-    })}
-  </div>
-</fieldset>
-
+          <legend className="modal__legend">Select the weather type:</legend>
+          <div className="modal__radio-input-container">
+            {weatherTypes.map((label, index) => {
+              const id = `weather-${label.toLowerCase()}`;
+              return (
+                <label
+                  key={id}
+                  htmlFor={id}
+                  className="modal__label_type_radio"
+                >
+                  <input
+                    type="radio"
+                    id={id}
+                    name="weather"
+                    className="radio modal__radio-input"
+                    checked={activeRadioIndex === index}
+                    onChange={() => handleRadioChange(index)}
+                  />
+                  {label}
+                </label>
+              );
+            })}
+          </div>
+        </fieldset>
       </ModalWithForm>
       <ItemModal
         activeModal={activeModal}

@@ -38,11 +38,10 @@
 .header__username {
   margin: 0;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
-font-weight: 500;
-font-size: 20px;
-line-height: 24px;
-letter-spacing: 0%;
-
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 }
 
 .mobile__user-container {
@@ -55,10 +54,9 @@ letter-spacing: 0%;
   flex-grow: 1;
 }
 
-.header__mobile-content{
+.header__mobile-content {
   display: flex;
 }
-
 
 @media screen and (max-width: 638px) {
   .header {
@@ -143,12 +141,12 @@ letter-spacing: 0%;
     top: 18px;
     background: #fff;
     z-index: 10;
-    width:100%;
+    width: 100%;
     display: flex;
     justify-content: center;
   }
-  
-  .header__mobile-content{
+
+  .header__mobile-content {
     padding: 60px 0;
     flex-direction: column-reverse;
     align-items: center;
@@ -160,8 +158,6 @@ letter-spacing: 0%;
     font-size: 20px;
     line-height: 100%;
     width: calc(100% - 45px);
- 
-
   }
 
   .header__date-and-location {

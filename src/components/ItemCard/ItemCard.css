@@ -7,7 +7,7 @@
 }
 
 .card__name {
-    display: flex;
+  display: flex;
   justify-self: anchor-center;
   background: border-box;
   background-color: white;

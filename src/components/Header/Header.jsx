@@ -16,8 +16,13 @@ function Header({ handleAddClick, weatherData }) {
 
   return (
     <header className="header">
-      <img className="header__logo" src={logo} />
-      <button className={`mobile__user-container ${isMobileMenuOpened ? "mobile__user-container_opened" : ""}`} onClick={handleMobileClick}>
+      <img className="header__logo" alt="head-logo" src={logo} />
+      <button
+        className={`mobile__user-container ${
+          isMobileMenuOpened ? "mobile__user-container_opened" : ""
+        }`}
+        onClick={handleMobileClick}
+      >
         {isMobileMenuOpened ? (
           ``
         ) : (
@@ -36,17 +41,21 @@ function Header({ handleAddClick, weatherData }) {
         }`}
       >
         <div className="header__mobile-content">
-        <button
-          onClick={handleAddClick}
-          type="button"
-          className="header__add-clothes-btn"
-        >
-          + Add clothes
-        </button>
-        <div className="header__user-container">
-          <p className="header__username">Terrence Tegegne</p>
-          <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
-        </div>
+          <button
+            onClick={handleAddClick}
+            type="button"
+            className="header__add-clothes-btn"
+          >
+            + Add clothes
+          </button>
+          <div className="header__user-container">
+            <p className="header__username">Terrence Tegegne</p>
+            <img
+              src={avatar}
+              alt="Terrence Tegegne"
+              className="header__avatar"
+            />
+          </div>
         </div>
       </div>
     </header>
