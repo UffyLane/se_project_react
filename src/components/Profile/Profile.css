@@ -1,0 +1,17 @@
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;          /* ✅ consistent spacing */
+  width: 100%;
+  margin-top: 63px;
+  margin-left: 16px;
+}
+
+@media screen and (max-width: 887px) {
+  .profile {
+    flex-direction: column;
+    gap: 0px;
+    margin-top: 2px;
+  }
+}

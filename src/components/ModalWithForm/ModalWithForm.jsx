@@ -1,21 +1,45 @@
 import "./ModalWithForm.css";
 
+
 function ModalWithForm({
   children,
   buttonText,
   title,
   onClose,
   isOpen,
+  onSubmit,
+  isDisabled = false,
 }) {
-  return (
-    <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
-      <div className="modal__content">
-        <form className="modal__form">
-          <h2 className="modal__title">{title}</h2>
-          {children}
-          <button onClick={onClose} type="button" className="modal__close" />
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isDisabled) {
+      onSubmit(e);
+    }
+  };
 
-          <button type="submit" className="modal__submit">
+  return (
+    <div
+      className={`add-item-modal ${isOpen ? "add-item-modal_opened" : ""}`}
+      onClick={onClose}
+    >
+      <div
+        className="add-item-modal__content"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          type="button"
+          className="add-item-modal__close"
+          aria-label="Close modal"
+        />
+        <form className="add-item-modal__form" onSubmit={handleSubmit} noValidate>
+          <h2 className="add-item-modal__title">{title}</h2>
+          {children}
+          <button
+            type="submit"
+            className="add-item-modal__submit"
+            disabled={isDisabled}
+          >
             {buttonText}
           </button>
         </form>

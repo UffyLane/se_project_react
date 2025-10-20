@@ -1,11 +1,12 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 32px 0 28px;
+ margin-top: 32px;
 }
 
 .header__logo {
   margin-right: 24px;
+  margin-left: 16px;
 }
 
 .header__date-and-location {
@@ -26,7 +27,8 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
-  letter-spacing: 0%;
+  cursor: pointer;
+  padding-left: 20px;
 }
 
 .header__user-container {
@@ -37,7 +39,6 @@
 
 .header__username {
   margin: 0;
-  font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -52,19 +53,32 @@
   display: flex;
   justify-content: end;
   flex-grow: 1;
+  align-items: center;
+  gap: 20px;
+  padding-right: 16px;
 }
 
 .header__mobile-content {
   display: flex;
 }
 
-@media screen and (max-width: 638px) {
+.header__profile-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  gap:20px;
+}
+
+@media screen and (max-width: 887px) {
   .header {
-    display: grid;
     max-width: 100%;
-    gap: 30px;
     justify-content: flex-start;
     flex-wrap: wrap;
+  }
+
+  .header__logo {
+    margin-right: 12px;
   }
 
   .mobile__user-container {
@@ -76,8 +90,7 @@
     border: 2px solid #ccc;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     display: block;
-    right: 27px;
-    top: 45px;
+    right: 16px;
     z-index: 11;
   }
 
@@ -86,8 +99,9 @@
     box-shadow: none;
     background-image: url(../../assets/close-button.png);
     background-repeat: no-repeat;
-    height: 21px;
-    width: 21px;
+    width: 28px;
+    z-index: 45;
+    margin-right: 16px;
   }
 
   .header-mobile__menu-1::before,
@@ -135,63 +149,65 @@
   }
 
   .mobile-menu_opened {
-    padding-top: 18px;
-    left: 0;
     position: absolute;
     top: 18px;
     background: #fff;
-    z-index: 10;
     width: 100%;
     display: flex;
     justify-content: center;
+    right: -16px;
+    z-index: 12;
   }
 
   .header__mobile-content {
-    padding: 60px 0;
+    padding-bottom: 55px;
+    padding-top: 20px;
+    height: 200px;
     flex-direction: column-reverse;
     align-items: center;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    height: 90px;
     font-family: Cabinet Grotesk;
     font-weight: 700;
     font-size: 20px;
     line-height: 100%;
     width: calc(100% - 45px);
+    display: flex;
+    justify-content: space-around;
   }
 
   .header__date-and-location {
     font-family: "Cabinet Grotesk", Arial, sans-serif;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 24px;
     text-align: center;
     left: 16px;
   }
 
-  .header__logo {
-  }
+ 
 
   .header__add-clothes-btn {
     position: absolute;
     align-self: center;
-    bottom: 60px;
-    top: 124px;
     z-index: 11;
-    font-family: Cabinet Grotesk;
-    font-weight: 500;
+    font-family: "Cabinet Grotesk";
+    font-weight: 700;
     font-size: 20px;
     line-height: 24px;
-    letter-spacing: 0%;
+    
   }
 
   .header__user-container {
-    position: absolute;
     display: flex;
     justify-content: center;
     width: 343px;
     height: 100px;
     flex-wrap: wrap;
     align-content: space-between;
+  }
+
+  .header__username {
+    font-weight: 700;
   }
 }

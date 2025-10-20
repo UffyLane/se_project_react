@@ -2,6 +2,8 @@ import "./Header.css";
 import logo from "../../assets/Logo.svg";
 import avatar from "../../assets/avatar.svg";
 import { useState } from "react";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import { NavLink } from "react-router-dom";
 
 function Header({ handleAddClick, weatherData }) {
   const currentDate = new Date().toLocaleString("default", {
@@ -40,7 +42,13 @@ function Header({ handleAddClick, weatherData }) {
           isMobileMenuOpened ? "mobile-menu_opened" : ""
         }`}
       >
+
+      
+        
+        
         <div className="header__mobile-content">
+        
+          <ToggleSwitch/>
           <button
             onClick={handleAddClick}
             type="button"
@@ -48,14 +56,16 @@ function Header({ handleAddClick, weatherData }) {
           >
             + Add clothes
           </button>
-          <div className="header__user-container">
+          
+          <NavLink className="header__profile-link" to="/profile">
             <p className="header__username">Terrence Tegegne</p>
             <img
               src={avatar}
               alt="Terrence Tegegne"
               className="header__avatar"
             />
-          </div>
+
+          </NavLink>
         </div>
       </div>
     </header>

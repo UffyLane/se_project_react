@@ -18,9 +18,7 @@
 }
 
 @media screen and (max-width: 638px) {
-  .page {
-  }
-
+  
   .page__content {
     padding-left: 16px;
     padding-right: 16px;

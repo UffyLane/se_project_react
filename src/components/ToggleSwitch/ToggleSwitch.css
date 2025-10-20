@@ -1,0 +1,97 @@
+.toggle-switch {
+  position: relative;
+  width: 56px;
+  height: 28px;
+  border: 2px solid gray;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+ align-self: anchor-center;
+}
+
+.toggle-switch:hover {
+  border-color: black;
+}
+
+.toggle-switch__checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-switch__slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #000;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+/* move knob when checked */
+.toggle-switch__checkbox:checked + .toggle-switch__slider {
+  left: 28px;
+}
+
+/* hover nudge */
+.toggle-switch:hover .toggle-switch__slider {
+  transform: scale(1.1);
+}
+.toggle-switch__checkbox:checked + .toggle-switch__slider:hover {
+  transform: scale(1.1);
+}
+
+/* labels */
+.toggle-switch__label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: bold;
+  color: grey;
+  pointer-events: none;
+}
+
+.toggle-switch__label_F {
+  left: 8px;
+}
+.toggle-switch__label_C {
+  right: 8px;
+}
+
+/* active label styling */
+.toggle-switch__label_color_active {
+  color: white;
+}
+
+@media screen and (max-width: 887px) {
+  .toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 22px;
+  }
+
+  .toggle-switch__slider {
+    width: 22px;
+    height: 22px;
+  }
+
+  .toggle-switch__checkbox:checked + .toggle-switch__slider {
+    left: 22px;
+  }
+
+  .toggle-switch__label {
+    font-size: 10px;
+  }
+
+  .toggle-switch__label_F {
+    left: 6px;
+  }
+  .toggle-switch__label_C {
+    right: 6px;
+  }
+}

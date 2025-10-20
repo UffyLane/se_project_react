@@ -1,22 +1,109 @@
+.item-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.item-modal_opened {
+  visibility: visible;
+}
+
+.item-modal__content {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  max-width: 480px;
+  width: 90%;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); /* floating look */
+  display: flex;
+  flex-direction: column;
+}
+
+.item-modal__caption {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 0 8px;
+}
+
 .item-modal__close {
-    background-image: url(../../assets/close-button-white.png);
+  background-image: url(../../assets/close-button-white.png);
   border: none;
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
-  top: 22px;
-  right: 28px;
-  padding: 16px;
-  padding-left: inherit;
-  width: 20px;
-  height: 20px;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 10;
 }
 
-@media screen and (max-width: 630px) {
-    .item-modal__close {
-        width: 21px;
-        height: 21px;
-        right: 16px;
-    }
+.item-modal__close:hover {
+  transform: scale(1.1);
+}
+
+.item-modal__image {
+  width: 498px;
+  height: 610px;
+  align-self: center;
+  display: block;
+}
+
+.item-modal__footer {
+  padding: 16px 20px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;;
+}
+
+.item-modal__info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-modal__caption {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0;
+}
+
+.item-modal__weather {
+  font-size: 20px;
+  margin: 0 0 12px;
+  color: #333;
+}
+
+.item-modal__delete {
+  background: transparent;
+  color: #ff4d4d;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+ align-self: flex-start;
+}
+
+.item-modal__delete:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 887px) {
+
+  .item-modal__close {
+    width: 21px;
+    height: 21px;
+    right: 12px;
+    top: 12px;
+  }
 }

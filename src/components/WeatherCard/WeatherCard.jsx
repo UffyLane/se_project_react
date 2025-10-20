@@ -1,32 +1,45 @@
 import "./WeatherCard.css";
+import { useContext } from "react";
 import { weatherOptions, defaultWeatherOptions } from "../../utils/constants";
+import CurrentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext";
 
 function WeatherCard({ weatherData }) {
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+
+  // Normalize condition from API (e.g., mist/drizzle -> fog/rain fallback)
+  const normalizedCondition = normalizeCondition(weatherData.condition);
+
   const filteredOptions = weatherOptions.filter((option) => {
-    return (
-      option.day === weatherData.isDay &&
-      option.condition === weatherData.condition
-    );
+    return option.day === weatherData.isDay && option.condition === normalizedCondition;
   });
-  let weatherOption;
-  if (filteredOptions.length === 0) {
-    weatherOption = defaultWeatherOptions[weatherData.isDay ? "day" : "night"];
-  } else {
-    weatherOption = filteredOptions[0];
-  }
+
+  const weatherOption =
+    filteredOptions.length === 0
+      ? defaultWeatherOptions[weatherData.isDay ? "day" : "night"]
+      : filteredOptions[0];
 
   return (
     <section className="weather-card">
-      <p className="weather-card__temp">{weatherData.temp.F}&deg;F</p>
+      <p className="weather-card__temp">
+        {weatherData.temp[currentTemperatureUnit]}°{currentTemperatureUnit}
+      </p>
       <img
         src={weatherOption?.url}
-        alt={`Card showing ${weatherOption?.day ? "day" : "night"}time ${
-          weatherOption?.conditon
-        } weather`}
+        alt={`Weather: ${normalizedCondition}, ${weatherData.isDay ? "daytime" : "nighttime"}`}
         className="weather-card__image"
       />
     </section>
   );
+}
+
+function normalizeCondition(condition) {
+  const map = {
+    mist: "fog",
+    haze: "fog",
+    drizzle: "rain",
+    thunderstorm: "storm",
+  };
+  return map[condition] || condition;
 }
 
 export default WeatherCard;

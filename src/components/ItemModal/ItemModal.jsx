@@ -1,14 +1,39 @@
 import "./ItemModal.css";
 
-function ItemModal({ activeModal, onClose, card }) {
+function ItemModal({ isOpen, onClose, item, onDeleteItem }) {
+  if (!isOpen || !item) return null;
+
   return (
-    <div className={`modal ${activeModal === "preview" && "modal_opened"}`}>
-      <div className="modal__content_type_image">
-        <button onClick={onClose} type="button" className="item-modal__close" />
-        <img src={card.link} alt="card-link" className="modal__image" />
-        <div className="modal__footer">
-          <h2 className="modal__caption">{card.name}</h2>
-          <p className="modal__weather">Weather:{card.weather}</p>
+    <div
+      className={`item-modal ${isOpen ? "item-modal_opened" : ""}`}
+      onClick={onClose}
+    >
+      <div
+        className="item-modal__content"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          type="button"
+          className="item-modal__close"
+          aria-label="Close modal"
+        />
+        <img
+          src={item.imageUrl || item.link}
+          alt={item.name}
+          className="item-modal__image"
+        />
+        <div className="item-modal__footer">
+          <div className="item-modal__info">
+            <h2 className="item-modal__caption">{item.name}</h2>
+            <p className="item-modal__weather">Weather: {item.weather}</p>
+          </div>
+          <button
+            className="item-modal__delete"
+            onClick={() => onDeleteItem(item._id)}
+          >
+            Delete item
+          </button>
         </div>
       </div>
     </div>

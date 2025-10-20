@@ -1,3 +1,5 @@
+import { convertToCelsius } from "./helper";
+
 export const getWeather = ({ latitude, longitude }, APIkey) => {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
@@ -11,26 +13,38 @@ export const getWeather = ({ latitude, longitude }, APIkey) => {
 };
 
 export const filterWeatherData = (data) => {
-  const result = {};
-  result.city = data.name;
-  result.temp = { F: data.main.temp };
-  result.type = getWeatherType(result.temp.F);
-  result.condition = data.weather[0].main.toLowerCase();
-  result.isDay = isDay(data.sys, Date.now());
-  return result;
+  const tempF = Math.round(data.main.temp); // API returns in F because of units=imperial
+  const tempC = convertToCelsius(tempF);
+
+  return {
+    city: data.name,
+    temp: { F: tempF, C: tempC },
+    type: getWeatherType(tempF), // thresholds in F
+    condition: normalizeCondition(data.weather[0].main.toLowerCase()),
+    isDay: isDay(data.sys, Date.now()),
+  };
 };
 
-const isDay = ({ sunrise, sunset }) => {
-  const now = Date.now();
+const isDay = ({ sunrise, sunset }, now) => {
   return sunrise * 1000 < now && now < sunset * 1000;
 };
 
-const getWeatherType = (temperature) => {
-  if (temperature > 86) {
+const getWeatherType = (temperatureF) => {
+  if (temperatureF > 86) {
     return "hot";
-  } else if (temperature >= 66 && temperature < 86) {
+  } else if (temperatureF >= 66 && temperatureF < 86) {
     return "warm";
   } else {
     return "cold";
   }
 };
+
+function normalizeCondition(condition) {
+  const map = {
+    mist: "fog",
+    haze: "fog",
+    drizzle: "rain",
+    thunderstorm: "storm",
+  };
+  return map[condition] || condition;
+}

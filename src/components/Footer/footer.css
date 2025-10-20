@@ -1,6 +1,8 @@
 .footer__container {
   display: flex;
   justify-content: flex-end;
+  padding-left: 16px;
+  padding-top: 85px;
 }
 
 .footer__copyright {
@@ -22,17 +24,22 @@
   line-height: 21.78px;
   text-align: left;
   font-weight: 400;
+  padding-right: 16px;
 }
 
-@media screen and (max-width: 638px) {
-  .footer-page__section {
-  }
+@media screen and (max-width: 887px) {
 
   .footer__container {
     position: relative;
-    left: 0;
+    left: 16px;
     bottom: 0;
     width: 100%;
     text-align: center;
+    top: 40px;
+    padding: 0;
+  }
+
+  .footer__year {
+    padding-right: 26px;
   }
 }
