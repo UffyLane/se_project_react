@@ -37,53 +37,11 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweatshirt.png?etag=008a9674757bea2e0bdb31242e364be0"
     },
     {
-      "_id": "1760468982426",
-      "name": "dfdff",
-      "imageUrl": "https://media.istockphoto.com/id/1726263781/vector/blank-black-t-shirt-template.jpg?s=1024x1024&w=is&k=20&c=1bK2luWtCw24ageJ-uZE_ckk_Xgj-hZjU1O_OE98R4g=",
-      "weather": "warm",
-      "id": 16
-    },
-    {
-      "_id": "1760903382677",
-      "name": "dfdff",
-      "imageUrl": "https://media.istockphoto.com/id/1726263781/vector/blank-black-t-shirt-template.jpg?s=1024x1024&w=is&k=20&c=1bK2luWtCw24ageJ-uZE_ckk_Xgj-hZjU1O_OE98R4g=",
-      "weather": "warm",
-      "id": 17
-    },
-    {
-      "_id": "1760904572848",
-      "name": "c c cdvdvv",
+      "_id": "1760993698973",
+      "name": "Pants",
       "imageUrl": "https://media.istockphoto.com/id/1199337634/photo/ripped-torn-pattern-of-light-blue-denim-jeans.jpg?s=612x612&w=is&k=20&c=ZEO_LLl98raU9eZ7i6_bjejrvkn_TCyiNUQqd3h8UYw=",
       "weather": "cold",
-      "id": 19
-    },
-    {
-      "_id": "1760907859666",
-      "name": "c c cdvdvv",
-      "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=1024x1024&w=is&k=20&c=_puQPTcJusuTjgxsUkBdd7QUquvOFsBiGe0FtlOOyh4=",
-      "weather": "cold",
-      "id": 20
-    },
-    {
-      "_id": "1760907864752",
-      "name": "c c cdvdvv",
-      "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=1024x1024&w=is&k=20&c=_puQPTcJusuTjgxsUkBdd7QUquvOFsBiGe0FtlOOyh4=",
-      "weather": "cold",
-      "id": 21
-    },
-    {
-      "_id": "1760907866880",
-      "name": "c c cdvdvv",
-      "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=1024x1024&w=is&k=20&c=_puQPTcJusuTjgxsUkBdd7QUquvOFsBiGe0FtlOOyh4=",
-      "weather": "cold",
-      "id": 22
-    },
-    {
-      "_id": "1760907874544",
-      "name": "c c cdvdvv",
-      "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=1024x1024&w=is&k=20&c=_puQPTcJusuTjgxsUkBdd7QUquvOFsBiGe0FtlOOyh4=",
-      "weather": "cold",
-      "id": 23
+      "id": 16
     }
   ]
 }

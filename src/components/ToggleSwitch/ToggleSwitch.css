@@ -6,7 +6,7 @@
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
- align-self: anchor-center;
+ align-self: center;
 }
 
 .toggle-switch:hover {

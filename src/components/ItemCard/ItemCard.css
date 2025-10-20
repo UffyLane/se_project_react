@@ -51,9 +51,10 @@
 
 .card__image {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 12px;
  display: block;
+  object-fit: cover;
 
 }
 
