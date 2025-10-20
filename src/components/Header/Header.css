@@ -9,6 +9,11 @@
   margin-left: 16px;
 }
 
+.header__logo-link {
+  display: inline-block;
+}
+
+
 .header__date-and-location {
   margin: 0;
   font-family: "Cabinet Grotesk", Arial, sans-serif;

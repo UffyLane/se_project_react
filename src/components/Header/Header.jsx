@@ -18,7 +18,10 @@ function Header({ handleAddClick, weatherData }) {
 
   return (
     <header className="header">
-      <img className="header__logo" alt="head-logo" src={logo} />
+      <NavLink to="/" className="header__logo-link">
+  <img className="header__logo" alt="head-logo" src={logo} />
+</NavLink>
+
       <button
         className={`mobile__user-container ${
           isMobileMenuOpened ? "mobile__user-container_opened" : ""

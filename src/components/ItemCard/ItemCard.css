@@ -75,11 +75,13 @@
 
 .cards__text {
   font-family: "Cabinet Grotesk", Arial, sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
-  line-height: 24px;
+  line-height: 100%;
   letter-spacing: 0%;
   margin-left: 16px;
+  margin-top: 40px;
+  margin-bottom: 34px;
 }
 
 .item-card__info {
