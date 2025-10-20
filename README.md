@@ -32,7 +32,7 @@ Project URL : https://UffyLane.github.io/se_project_react/
 
 ![Mobile menu in the WTWR app is open, displaying navigation options arranged vertically. The menu includes buttons labeled Therm Change, Add Clothes, and Profile. The background is minimal and clean, designed for easy navigation. The tone is neutral and user-friendly.]`mobile-menu-open.png`
 
-![WTWR app navigation header logo featuring stylized text WTWR in bold modern font; the logo is centered within a clean minimal interface, conveying a welcoming and professional tone. The background is neutral, supporting easy readability and accessibility.]`nav-header-logo.png`
+![WTWR app navigation header logo featuring stylized text WTWR in bold modern font; the logo is centered within a clean minimal interface, conveying a welcoming and professional tone. The background is neutral, supporting easy readability and accessibility. Logo is button enabled for smooth transitions between pages.]`nav-header-logo.png`
 
 ## Problems
 
