@@ -6,7 +6,7 @@ export const weatherOptions = [
   },
   {
     day: true,
-    condition: "cloudy",
+    condition: "clouds",
     url: new URL("../assets/day/cloudy.png", import.meta.url).href,
   },
   {
@@ -37,7 +37,7 @@ export const weatherOptions = [
   },
   {
     day: false,
-    condition: "cloudy",
+    condition: "clouds",
     url: new URL("../assets/night/cloudy.png", import.meta.url).href,
   },
   {
@@ -116,4 +116,4 @@ export const coordinates = {
   longitude: -93.460167,
 };
 
-export const APIkey = "205adf60b866c8dd33019e3c05921e25";
+export const ApiKey = "205adf60b866c8dd33019e3c05921e25";

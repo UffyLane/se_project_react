@@ -19,11 +19,11 @@ function ModalWithForm({
 
   return (
     <div
-      className={`add-item-modal ${isOpen ? "add-item-modal_opened" : ""}`}
+      className={`modal ${isOpen ? "modal_opened" : ""}`}
       onClick={onClose}
     >
       <div
-        className="add-item-modal__content"
+        className="modal__content"
         onClick={(e) => e.stopPropagation()}
       >
         <button

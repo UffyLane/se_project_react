@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import CurrentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext";
 import "./App.css"; 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -13,8 +14,9 @@ import {
   addClothingItem,
   deleteClothingItem,
 } from "../../utils/api";
-import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { coordinates, APIkey } from "../../utils/constants";
+import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
+import { coordinates, ApiKey} from "../../utils/constants";
+
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -23,10 +25,14 @@ function App() {
   const [itemToDelete, setItemToDelete] = useState(null); // ✅ added this
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const handleToggleSwitchChange = () => {
+    setCurrentTemperatureUnit((prevUnit) => (prevUnit === "F" ? "C" : "F"));
+  }
 
   // ---- fetch weather + clothes on load ----
   useEffect(() => {
-    getWeather(coordinates, APIkey)
+    getWeather(coordinates, ApiKey)
       .then(filterWeatherData)
       .then(setWeatherData)
       .catch(console.error);
@@ -67,7 +73,7 @@ function App() {
 
   // ---- Delete confirmed ----
   const handleDeleteItem = () => {
-    if (!itemToDelete?.id) return;
+    if (!itemToDelete?._id) return;
 
     deleteClothingItem(itemToDelete.id)
       .then(() => {
@@ -81,6 +87,7 @@ function App() {
   };
 
   return (
+    <CurrentTemperatureUnitContext.Provider value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
     <div className="app">
       <Header
         handleAddClick={handleAddClick}
@@ -107,6 +114,7 @@ function App() {
               clothingItems={clothingItems}
               onCardClick={handleCardClick}
               onDeleteItem={handleOpenDeleteConfirm}
+              onAddNewClick={handleAddClick}
             />
           }
         />
@@ -124,7 +132,7 @@ function App() {
         isOpen={!!selectedItem}
         onClose={handleCloseModals}
         item={selectedItem}
-        onDeleteItem={() => handleOpenDeleteConfirm(selectedItem)}
+        onDeleteItem={handleOpenDeleteConfirm}
       />
 
       <ConfirmDeleteModal
@@ -133,6 +141,7 @@ function App() {
         onConfirm={handleDeleteItem}
       />
     </div>
+    </CurrentTemperatureUnitContext.Provider>
   );
 }
 
