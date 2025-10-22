@@ -1,10 +1,10 @@
 import { convertToCelsius } from "./helper";
-import {checkResponse} from "./api";
+import {handleServerResponse} from "./api";
 
 export const getWeather = ({ latitude, longitude }, ApiKey) => {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${ApiKey}`
-  ).then(checkResponse);
+  ).then(handleServerResponse);
 };
 
 export const filterWeatherData = (data) => {

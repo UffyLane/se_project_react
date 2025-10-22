@@ -1,5 +1,5 @@
 import "./Profile.css";
-import SideBar from "../SideBar";
+import SideBar from "../Sidebar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 
 function Profile({ clothingItems, onCardClick, onAddNewClick, onDeleteItem }) {

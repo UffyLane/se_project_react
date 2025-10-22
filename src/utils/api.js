@@ -4,14 +4,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-const checkResponse = (res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
-};
-
-const handleServerResponse = async (response) => {
+export const handleServerResponse = async (response) => {
   if (response.ok) {
     return response.json();
   }

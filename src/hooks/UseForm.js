@@ -1,6 +1,4 @@
-import {useState} from "react";
-
-
+import { useState, useEffect } from "react";
 
 export default function useForm(initialValues) {
   const [values, setValues] = useState(initialValues);
@@ -13,9 +11,18 @@ export default function useForm(initialValues) {
     }));
   };
 
+  const resetForm = () => {
+    setValues(initialValues);
+  };
+
+  useEffect(() => {
+    setValues(initialValues);
+  }, [initialValues]);
+
   return {
     values,
     handleChange,
     setValues,
+    resetForm,
   };
 }

@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 60px;          /* ✅ consistent spacing */
-  width: 100%;
   margin-top: 63px;
   margin-left: 16px;
 }

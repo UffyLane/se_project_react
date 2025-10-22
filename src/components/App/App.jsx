@@ -30,8 +30,21 @@ function App() {
     setCurrentTemperatureUnit((prevUnit) => (prevUnit === "F" ? "C" : "F"));
   }
 
-  // ---- fetch weather + clothes on load ----
   useEffect(() => {
+
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        handleCloseModals();
+      }
+    }
+    document.addEventListener("keydown", closeByEscape);
+    return () => {
+      document.removeEventListener("keydown", closeByEscape);
+    }
+  }, []);
+  
+  useEffect(() => {
+
     getWeather(coordinates, ApiKey)
       .then(filterWeatherData)
       .then(setWeatherData)
@@ -73,13 +86,11 @@ function App() {
 
   // ---- Delete confirmed ----
   const handleDeleteItem = () => {
-    if (!itemToDelete?._id) return;
-
-    deleteClothingItem(itemToDelete.id)
-      .then(() => {
+    deleteClothingItem(itemToDelete)
+    .then(() => {
         // ✅ instantly update UI without refresh
         setClothingItems((prevItems) =>
-          prevItems.filter((item) => item.id !== itemToDelete.id)
+          prevItems.filter((item) => item.id !== itemToDelete)
         );
         handleCloseModals();
       })
