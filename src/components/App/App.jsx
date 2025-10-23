@@ -45,16 +45,32 @@ function App() {
   
   useEffect(() => {
 
-    getWeather(coordinates, ApiKey)
-      .then(filterWeatherData)
-      .then(setWeatherData)
-      .catch(console.error);
-
-    fetchClothes()
-      .then(setClothingItems)
-      .catch(console.error);
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const coords = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        getWeather(coords, ApiKey)
+          .then(filterWeatherData)
+          .then(setWeatherData)
+          .catch(console.error);
+      }, (error) => {
+        // If user denies geolocation or error occurs, use default coordinates
+        console.warn(`Geolocation error (${error.code}): ${error.message}. Using default coordinates.`);
+        getWeather(coordinates, ApiKey)
+          .then(filterWeatherData)
+          .then(setWeatherData)
+          .catch(console.error);
+      });
+    } else {
+      // Geolocation not supported, use default coordinates
+      getWeather(coordinates, ApiKey)
+        .then(filterWeatherData)
+        .then(setWeatherData)
+        .catch(console.error);
+    }
   }, []);
-
   // ---- Modal Controls ----
   const handleAddClick = () => setIsAddModalOpen(true);
 

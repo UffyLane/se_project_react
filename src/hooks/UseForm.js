@@ -15,10 +15,6 @@ export default function useForm(initialValues) {
     setValues(initialValues);
   };
 
-  useEffect(() => {
-    setValues(initialValues);
-  }, [initialValues]);
-
   return {
     values,
     handleChange,
