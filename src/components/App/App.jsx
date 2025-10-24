@@ -55,6 +55,7 @@ function App() {
           .then(filterWeatherData)
           .then(setWeatherData)
           .catch(console.error);
+
       }, (error) => {
         // If user denies geolocation or error occurs, use default coordinates
         console.warn(`Geolocation error (${error.code}): ${error.message}. Using default coordinates.`);
@@ -68,6 +69,10 @@ function App() {
       getWeather(coordinates, ApiKey)
         .then(filterWeatherData)
         .then(setWeatherData)
+        .catch(console.error);
+
+        fetchClothes()
+        .then(setClothingItems)
         .catch(console.error);
     }
   }, []);

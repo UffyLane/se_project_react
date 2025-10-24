@@ -15,7 +15,7 @@ const AddItemModal = ({ isOpen, onSubmit, onClose }) => {
     if (isOpen) {
       resetForm();
     }
-  }, [isOpen, resetForm]);
+  }, [isOpen]);
 
 
   const weatherTypes = ["cold", "warm", "hot"];
