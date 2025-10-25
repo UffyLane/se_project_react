@@ -30,7 +30,7 @@ function ItemModal({ isOpen, onClose, item, onDeleteItem }) {
           </div>
           <button
             className="item-modal__delete"
-            onClick={() => onDeleteItem(item._id)}
+            onClick={() => onDeleteItem(item)}
           >
             Delete item
           </button>

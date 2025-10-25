@@ -47,8 +47,10 @@ function App() {
   useEffect(() => {
     fetchClothes()
       .then((items) => setClothingItems(items))
-      .catch(console.error);
-  }   , []);
+      .catch((err) => { console.warn(err);
+        setClothingItems(defaultClothingItems);
+      });
+  }, []);
 
   useEffect(() => {
 
@@ -79,7 +81,7 @@ function App() {
         .catch(console.error);
     }
   }, []);
-  
+
 
   // ---- Modal Controls ----
   const handleAddClick = () => setIsAddModalOpen(true);
@@ -116,7 +118,7 @@ function App() {
     .then(() => {
         // ✅ instantly update UI without refresh
         setClothingItems((prevItems) =>
-          prevItems.filter((item) => item._id !== itemToDelete._id)
+          prevItems.filter((item) => item !== itemToDelete)
         );
         handleCloseModals();
       })

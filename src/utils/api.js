@@ -26,9 +26,12 @@ export const addClothingItem = (itemData) => {
   }).then(handleServerResponse);
 };
 
-export const deleteClothingItem = (itemId) => {
-  return fetch(`${baseUrl}/items/${itemId}`, {
+export const deleteClothingItem = async (item) => {
+  console.log('Deleting item:', item);
+  const id = item.id || item._id;
+  const response = await fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers,
-  }).then(handleServerResponse);
+  });
+  return handleServerResponse(response);
 };
