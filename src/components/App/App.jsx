@@ -31,7 +31,7 @@ function App() {
   }
 
   useEffect(() => {
-
+    
     const closeByEscape = (e) => {
       if (e.key === "Escape") {
         handleCloseModals();
@@ -41,11 +41,18 @@ function App() {
     return () => {
       document.removeEventListener("keydown", closeByEscape);
     }
+
   }, []);
-  
+
+  useEffect(() => {
+    fetchClothes()
+      .then((items) => setClothingItems(items))
+      .catch(console.error);
+  }   , []);
+
   useEffect(() => {
 
-    if(navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const coords = {
           latitude: position.coords.latitude,
@@ -70,12 +77,10 @@ function App() {
         .then(filterWeatherData)
         .then(setWeatherData)
         .catch(console.error);
-
-        fetchClothes()
-        .then(setClothingItems)
-        .catch(console.error);
     }
   }, []);
+  
+
   // ---- Modal Controls ----
   const handleAddClick = () => setIsAddModalOpen(true);
 
@@ -111,7 +116,7 @@ function App() {
     .then(() => {
         // ✅ instantly update UI without refresh
         setClothingItems((prevItems) =>
-          prevItems.filter((item) => item.id !== itemToDelete)
+          prevItems.filter((item) => item._id !== itemToDelete._id)
         );
         handleCloseModals();
       })
