@@ -7,7 +7,7 @@ function LoginModal({ isOpen, onClose, switchToSignup }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // 🔥 do NOT render unless open
+  // 🔥 Don’t render if closed
   if (!isOpen) return null;
 
   const handleOverlayClick = (e) => {
@@ -20,12 +20,11 @@ function LoginModal({ isOpen, onClose, switchToSignup }) {
     e.preventDefault();
 
     loginUser(email, password)
-      .then(() => {
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
         setErrorMessage("");
         onClose();
-
-        // reload safely to refresh UI state
-        window.location.reload();
+        window.location.reload(); // refresh UI
       })
       .catch(() => {
         setErrorMessage("Email or password incorrect");
@@ -34,7 +33,10 @@ function LoginModal({ isOpen, onClose, switchToSignup }) {
 
   return (
     <div className="loginmodal__overlay" onClick={handleOverlayClick}>
-      <div className="loginmodal__container">
+      <div
+        className="loginmodal__container"
+        onClick={(e) => e.stopPropagation()}  // 🔥 prevents accidental closing
+      >
         <button className="loginmodal__close" onClick={onClose}>
           ×
         </button>

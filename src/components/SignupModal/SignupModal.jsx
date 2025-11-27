@@ -3,20 +3,13 @@ import "./SignupModal.css";
 import { signupUser } from "../../utils/api";
 
 function SignupModal({ isOpen, onClose, switchToLogin }) {
+  if (!isOpen) return null;
+
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  // 🔥 don't render at all unless open
-  if (!isOpen) return null;
-
-  const handleOverlayClick = (e) => {
-    if (e.target.classList.contains("signupmodal__overlay")) {
-      onClose();
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,17 +18,19 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
       .then(() => {
         setErrorMessage("");
         onClose();
-        switchToLogin(); // after sign up → show login modal
+        switchToLogin(); 
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
         setErrorMessage("Could not create account");
       });
   };
 
   return (
-    <div className="signupmodal__overlay" onClick={handleOverlayClick}>
-      <div className="signupmodal__container">
+    <div className="signupmodal__overlay" onClick={onClose}>
+      <div
+        className="signupmodal__container"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button className="signupmodal__close" onClick={onClose}>
           ×
         </button>
@@ -43,7 +38,7 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
         <h2 className="signupmodal__title">Sign Up</h2>
 
         <form className="signupmodal__form" onSubmit={handleSubmit}>
-          <label className="signupmodal__label">Name</label>
+          <label className="signupmodal__label">Name *</label>
           <input
             className="signupmodal__input"
             type="text"
@@ -53,7 +48,7 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
             required
           />
 
-          <label className="signupmodal__label">Avatar URL</label>
+          <label className="signupmodal__label">Avatar *</label>
           <input
             className="signupmodal__input"
             type="url"
@@ -63,7 +58,7 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
             required
           />
 
-          <label className="signupmodal__label">Email</label>
+          <label className="signupmodal__label">Email *</label>
           <input
             className="signupmodal__input"
             type="email"
@@ -73,7 +68,7 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
             required
           />
 
-          <label className="signupmodal__label">Password</label>
+          <label className="signupmodal__label">Password *</label>
           <input
             className="signupmodal__input"
             type="password"

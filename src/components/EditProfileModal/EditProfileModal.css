@@ -1,0 +1,95 @@
+/* FULLSCREEN DARK OVERLAY */
+.profilemodal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+}
+
+/* WHITE MODAL BOX */
+.profilemodal__container {
+  background: white;
+  padding: 40px 50px;
+  width: 640px;
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+}
+
+/* CLOSE BUTTON */
+.profilemodal__close {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.profilemodal__close:hover {
+  opacity: 1;
+}
+
+/* TITLE */
+.profilemodal__title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 40px;
+}
+
+/* LABELS */
+.profilemodal__label {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: red;
+}
+
+/* INPUT FIELDS */
+.profilemodal__input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #000;
+  font-size: 20px;
+  padding: 6px 0;
+  margin-bottom: 16px;
+  outline: none;
+}
+
+/* BUTTON */
+.profilemodal__button {
+  margin-top: 35px;
+  padding: 12px 28px;
+  font-size: 18px;
+  font-weight: 600;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.profilemodal__button:hover {
+  opacity: 0.9;
+}
+
+/* ERROR MESSAGE */
+.profilemodal__error {
+  color: red;
+  margin-top: 8px;
+}
+.profilemodal__error_hidden {
+  display: none;
+}

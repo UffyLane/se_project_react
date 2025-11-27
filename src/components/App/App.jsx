@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import CurrentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext";
-import "./App.css"; 
+import "./App.css";
 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -14,17 +14,19 @@ import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 
 import LoginModal from "../LoginModal/LoginModal";
 import SignupModal from "../SignupModal/SignupModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 import {
   fetchClothes,
   addClothingItem,
   deleteClothingItem,
+  fetchUserInfo,
+  updateUserInfo,
 } from "../../utils/api";
 
 import { defaultClothingItems } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import { coordinates, ApiKey } from "../../utils/constants";
-
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -32,43 +34,52 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
 
+  const [currentUser, setCurrentUser] = useState(null);
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
-  // ---- Toggle Switch ----
+  // Temperature unit toggle
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit((prevUnit) =>
       prevUnit === "F" ? "C" : "F"
     );
   };
 
-  // ---- ESC to close ----
+  // ESC-close
   useEffect(() => {
     const closeByEscape = (e) => {
       if (e.key === "Escape") handleCloseModals();
     };
 
     document.addEventListener("keydown", closeByEscape);
-    return () =>
-      document.removeEventListener("keydown", closeByEscape);
+    return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
-  // ---- Fetch Clothes ----
+  // Load clothing items
   useEffect(() => {
     fetchClothes()
       .then((items) => setClothingItems(items))
-      .catch((err) => {
-        console.warn(err);
-        setClothingItems(defaultClothingItems);
-      });
+      .catch(() => setClothingItems(defaultClothingItems));
   }, []);
 
-  // ---- Weather ----
+  // Load user after login (if token exists)
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (!token) return;
+
+    fetchUserInfo()
+      .then((user) => setCurrentUser(user))
+      .catch((err) => console.error("User fetch failed", err));
+  }, []);
+
+  // Load weather
   useEffect(() => {
     const loadWeather = (coords) => {
       getWeather(coords, ApiKey)
@@ -79,25 +90,19 @@ function App() {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        (position) =>
           loadWeather({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-          });
-        },
-        (error) => {
-          console.warn(
-            `Geolocation error (${error.code}): ${error.message}. Using default coordinates.`
-          );
-          loadWeather(coordinates);
-        }
+          }),
+        () => loadWeather(coordinates)
       );
     } else {
       loadWeather(coordinates);
     }
   }, []);
 
-  // ---- Login / Signup ----
+  // Login / Signup
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
     setIsSignupModalOpen(false);
@@ -111,9 +116,11 @@ function App() {
   const closeLoginModal = () => setIsLoginModalOpen(false);
   const closeSignupModal = () => setIsSignupModalOpen(false);
 
-  // ---- Modal Controls ----
-  const handleAddClick = () => setIsAddModalOpen(true);
+  // Edit profile modal
+  const openEditProfileModal = () => setIsEditProfileOpen(true);
+  const closeEditProfileModal = () => setIsEditProfileOpen(false);
 
+  // Close ALL modals
   const handleCloseModals = () => {
     setIsAddModalOpen(false);
     setSelectedItem(null);
@@ -121,9 +128,10 @@ function App() {
     setIsConfirmDeleteOpen(false);
     setIsLoginModalOpen(false);
     setIsSignupModalOpen(false);
+    setIsEditProfileOpen(false);
   };
 
-  // ---- Add Clothing Item ----
+  // Add item
   const handleAddItem = (newItem) => {
     addClothingItem(newItem)
       .then((savedItem) => {
@@ -133,10 +141,10 @@ function App() {
       .catch(console.error);
   };
 
-  // ---- Item Card Click ----
+  // Card preview
   const handleCardClick = (item) => setSelectedItem(item);
 
-  // ---- Delete ----
+  // Delete
   const handleOpenDeleteConfirm = (item) => {
     setItemToDelete(item);
     setIsConfirmDeleteOpen(true);
@@ -145,12 +153,29 @@ function App() {
   const handleDeleteItem = () => {
     deleteClothingItem(itemToDelete)
       .then(() => {
-        setClothingItems((prevItems) =>
-          prevItems.filter((item) => item._id !== itemToDelete._id)
+        setClothingItems((prev) =>
+          prev.filter((c) => c._id !== itemToDelete._id)
         );
         handleCloseModals();
       })
       .catch(console.error);
+  };
+
+  // Update profile
+  const handleUpdateUser = (updated) => {
+    updateUserInfo(updated)
+      .then((newUser) => {
+        setCurrentUser(newUser);
+        closeEditProfileModal();
+      })
+      .catch(console.error);
+  };
+
+  // Logout
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    setCurrentUser(null);
+    window.location.href = "/";
   };
 
   return (
@@ -158,16 +183,14 @@ function App() {
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
       <div className="app">
-
-        {/* HEADER */}
         <Header
-          handleAddClick={handleAddClick}
+          handleAddClick={() => setIsAddModalOpen(true)}
           weatherData={weatherData || { city: "", temp: { F: 0, C: 0 } }}
           openLoginModal={openLoginModal}
           openSignupModal={openSignupModal}
+          user={currentUser}
         />
 
-        {/* ROUTES */}
         <Routes>
           <Route
             path="/"
@@ -190,26 +213,26 @@ function App() {
             path="/profile"
             element={
               <Profile
+                user={currentUser}
                 clothingItems={clothingItems}
                 onCardClick={handleCardClick}
                 onDeleteItem={handleOpenDeleteConfirm}
-                onAddNewClick={handleAddClick}
+                onAddNewClick={() => setIsAddModalOpen(true)}
+                onEditProfile={openEditProfileModal}
+                onLogout={handleLogout}
               />
             }
           />
         </Routes>
 
-        {/* FOOTER */}
         <Footer />
 
-        {/* ADD ITEM */}
         <AddItemModal
           isOpen={isAddModalOpen}
           onClose={handleCloseModals}
           onSubmit={handleAddItem}
         />
 
-        {/* ITEM PREVIEW MODAL */}
         <ItemModal
           isOpen={!!selectedItem}
           onClose={handleCloseModals}
@@ -217,25 +240,29 @@ function App() {
           onDeleteItem={handleOpenDeleteConfirm}
         />
 
-        {/* CONFIRM DELETE */}
         <ConfirmDeleteModal
           isOpen={isConfirmDeleteOpen}
           onClose={handleCloseModals}
           onConfirm={handleDeleteItem}
         />
 
-        {/* LOGIN */}
         <LoginModal
           isOpen={isLoginModalOpen}
           onClose={closeLoginModal}
           switchToSignup={openSignupModal}
         />
 
-        {/* SIGNUP */}
         <SignupModal
           isOpen={isSignupModalOpen}
           onClose={closeSignupModal}
           switchToLogin={openLoginModal}
+        />
+
+        <EditProfileModal
+          isOpen={isEditProfileOpen}
+          onClose={closeEditProfileModal}
+          user={currentUser}
+          onUpdateUser={handleUpdateUser}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>
