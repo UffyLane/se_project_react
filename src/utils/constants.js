@@ -74,47 +74,133 @@ export const defaultWeatherOptions = {
 
 export const defaultClothingItems = [
   {
-    id: 0,
-    _id: 0,
-    name: "Cap",
-    weather: "hot",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
+      "id": 0,
+      "_id": 0,
+      "name": "Cap",
+      "weather": "hot",
+      "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png"
+    },
+
+    {
+      "id": 1,
+      "_id": 1,
+      "name": "Hoodie",
+      "weather": "warm",
+      "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png"
+  },
+
+  {
+    "id": 2,
+    "_id": 2,
+    "name": "Jacket",
+    "weather": "cold",
+    "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png"
   },
   {
-    id: 1,
-    _id: 1,
-    name: "Hoodie",
-    weather: "warm",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8",
+    "id": 3,
+    "_id": 3,
+    "name": "Sneakers",
+    "weather": "cold",
+    "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sneakers.png"
   },
   {
-    id: 2,
-    _id: 2,
-    name: "Jacket",
-    weather: "cold",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png?etag=f4bb188deaa25ac84ce2338be2d404ad",
+    "id": 4,
+    "_id": 4,
+    "name": "T-Shirt",
+    "weather": "hot",
+    "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png"
   },
   {
-    id: 3,
-    _id: 3,
-    name: "Sneakers",
-    weather: "cold",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sneakers.png?etag=3efeec41c1c78b8afe26859ca7fa7b6f",
+    "id": 5,
+    "_id": 5,
+    "name": "Coat",
+    "weather": "cold",
+    "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png"
   },
-  {
-    id: 4,
-    _id: 4,
-    name: "T-Shirt",
-    weather: "hot",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09",
-  },
-  {
-    id: 5,
-    _id: 5,
-    name: "Coat",
-    weather: "cold",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
-  },
+    {
+      "id": 6,
+      "_id": 6,
+      "name": "Dress",
+      "weather": "hot",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Dress.png"
+    },
+    {
+      "id": 7,
+      "_id": 7,
+      "name": "Jeans",
+      "weather": "warm",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jeans.png"
+    },
+    {
+      "id": 8,
+      "_id": 8,
+      "name": "Raincoat",
+      "weather": "cold",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Raincoat.png"
+    },
+    {
+      "id": 9,
+      "_id": 9,
+      "name": "Sandals",
+      "weather": "hot",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sandals.png"
+    },
+    {
+      "id": 10,
+      "_id": 10,
+      "name": "Shorts",
+      "weather": "hot",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Shorts.png"
+    },
+    {
+      "id": 11,
+      "_id": 11,
+      "name": "Sneakers",
+      "weather": "warm",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sneakers.png"
+    },
+    {
+      "id": 12,
+      "_id": 12,
+      "name": "Sunglasses",
+      "weather": "hot",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sunglasses.png"
+    },
+    {
+      "id": 13,
+      "_id": 13,
+      "name": "Sweatshirt",
+      "weather": "warm",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweatshirt.png"
+    },
+    {
+      "_id": "1760993698973",
+      "name": "Pants",
+      "imageUrl": "https://media.istockphoto.com/id/1199337634/photo/ripped-torn-pattern-of-light-blue-denim-jeans.jpg?s=612x612&w=is&k=20&c=ZEO_LLl98raU9eZ7i6_bjejrvkn_TCyiNUQqd3h8UYw=",
+      "weather": "cold",
+      "id": 16
+    },
+    {
+      "_id": 14,
+      "id": 14,
+      "name": "Beanie",
+      "weather": "cold",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Beanie.png"
+    },
+    {
+      "_id": 15,
+      "id": 15,
+      "name": "Boot",
+      "weather": "cold",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Boot.png"
+    },
+    {
+      "_id": 17,
+      "id": 17,
+      "name": "Sweater",
+      "weather": "warm",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweater.png"
+    }
 ];
 
 export const coordinates = {

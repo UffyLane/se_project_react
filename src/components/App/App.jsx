@@ -14,6 +14,7 @@ import {
   addClothingItem,
   deleteClothingItem,
 } from "../../utils/api";
+import { defaultClothingItems } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import { coordinates, ApiKey} from "../../utils/constants";
 
@@ -82,6 +83,41 @@ function App() {
     }
   }, []);
 
+  // ---- Login/Signup Modals ----
+
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+
+
+
+  const openLoginModal = () => {
+    setIsLoginModalOpen(true);
+    setIsSignupModalOpen(false);
+  };
+
+  const openSignupModal = () => {
+    setIsSignupModalOpen(true);
+    setIsLoginModalOpen(false);
+  };
+
+  const closeLoginModal = () => setIsLoginModalOpen(false);
+  const closeSignupModal = () => setIsSignupModalOpen(false);
+
+
+  {isLoginModalOpen && (
+  <LoginModal
+    onClose={closeLoginModal}
+    switchToSignup={openSignupModal}
+  />
+)}
+
+{isSignupModalOpen && (
+  <SignupModal
+    onClose={closeSignupModal}
+    switchToLogin={openLoginModal}
+  />
+)}
+
 
   // ---- Modal Controls ----
   const handleAddClick = () => setIsAddModalOpen(true);
@@ -114,24 +150,26 @@ function App() {
 
   // ---- Delete confirmed ----
   const handleDeleteItem = () => {
-    deleteClothingItem(itemToDelete)
+  deleteClothingItem(itemToDelete)
     .then(() => {
-        // ✅ instantly update UI without refresh
-        setClothingItems((prevItems) =>
-          prevItems.filter((item) => item !== itemToDelete)
-        );
-        handleCloseModals();
-      })
-      .catch(console.error);
-  };
+      setClothingItems((prevItems) =>
+        prevItems.filter((item) => item._id !== itemToDelete._id)
+      );
+      handleCloseModals();
+    })
+    .catch(console.error);
+};
 
   return (
     <CurrentTemperatureUnitContext.Provider value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
     <div className="app">
-      <Header
-        handleAddClick={handleAddClick}
-        weatherData={weatherData || { city: "", temp: { F: 0, C: 0 } }}
-      />
+     <Header
+  handleAddClick={handleAddClick}
+  weatherData={weatherData || { city: "", temp: { F: 0, C: 0 } }}
+  openLoginModal={openLoginModal}
+  openSignupModal={openSignupModal}
+/>
+
 
       <Routes>
         <Route

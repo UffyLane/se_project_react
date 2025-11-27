@@ -1,26 +1,8 @@
 import express from "express";
-import cors from "cors";
-import router from "./routes.js";
 
+const router = express.Router();
 
-const app = express();
-const PORT = 3001;
-
-app.use((req, _res, next) => {
-  console.log(`➡️ ${req.method} ${req.url}`);
-  next();
-});
-
-
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
-
-app.use('/api', router);
-
-const items = [
+let items = [
   { _id: 0, name: "Cap", weather: "hot", imageUrl: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png" },
   { _id: 1, name: "Jacket", weather: "cold", imageUrl: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png" },
   { _id: 2, name: "Sweater", weather: "warm", imageUrl: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweater.png" },
@@ -38,30 +20,28 @@ const items = [
   { _id: 14, name: "Sweatshirt", weather: "warm", imageUrl: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweatshirt.png" },
 ];
 
-// Debug logging middleware
-app.use((req, _res, next) => {
-  console.log(`➡️ ${req.method} ${req.url}`);
+const doesUserExist = (req, res, next) => {
+  // Placeholder middleware
+  console.log("✅ doesUserExist middleware called");
   next();
-});
+};
 
-
-
-// Get all items
-app.get("/items", (_req, res) => {
+// GET all items
+router.get("/items", doesUserExist, (req, res) => {
   res.json(items);
 });
 
-// Add new item
-app.post("/items", (req, res) => {
+// POST new item
+router.post("/items", doesUserExist, (req, res) => {
   const newItem = req.body;
-  newItem._id = Date.now(); // ✅ use only _id
+  newItem._id = Date.now(); // unique ID
   items.push(newItem);
   console.log("✅ Added:", newItem);
   res.status(201).json(newItem);
 });
 
-// Delete item
-app.delete("/items/:id", (req, res) => {
+// DELETE item
+router.delete("/items/:id", doesUserExist, (req, res) => {
   const itemId = parseInt(req.params.id, 10);
   const index = items.findIndex((item) => item._id === itemId);
 
@@ -72,10 +52,7 @@ app.delete("/items/:id", (req, res) => {
 
   const deletedItem = items.splice(index, 1)[0];
   console.log("🗑️ Deleted:", deletedItem);
-  console.log("🧾 Remaining:", items);
   res.json(deletedItem);
 });
 
-app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-});
+export default router;

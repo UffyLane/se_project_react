@@ -1,0 +1,80 @@
+.signupmodal__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.signupmodal__container {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  width: 420px;
+  position: relative;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+}
+
+.signupmodal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.signupmodal__title {
+  margin: 0 0 24px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.signupmodal__label {
+  font-size: 14px;
+  margin-top: 16px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.signupmodal__input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #888;
+  padding: 8px 0;
+  font-size: 16px;
+  outline: none;
+}
+
+.signupmodal__error {
+  color: #e63946;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.signupmodal__button {
+  margin-top: 24px;
+  padding: 10px 20px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.signupmodal__button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.signupmodal__switch {
+  display: inline-block;
+  margin-left: 12px;
+  font-size: 14px;
+  color: gray;
+  cursor: pointer;
+}

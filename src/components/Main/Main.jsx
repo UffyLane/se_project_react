@@ -15,13 +15,21 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
           Today is {weatherData.temp[currentTemperatureUnit]}°{currentTemperatureUnit} / You may want to wear:
         </p>
         <ul className="cards__list">
-          {clothingItems.filter(item => item.weather.toLowerCase() === weatherData.type.toLowerCase()).map((item) => (
-              <ItemCard
-                key={item.id || item._id || item.name} // handle both id and _id
-                item={item}
-                onCardClick={handleCardClick}
-              />
-            ))}
+          {clothingItems
+  .filter((item) => {
+    const itemWeather = item?.weather?.toLowerCase?.() || "";
+    const weatherType = weatherData?.type?.toLowerCase?.() || "";
+    return itemWeather === weatherType;
+  })
+  .map((item) => (
+    <ItemCard
+      key={item.id || item._id || item.name}
+      item={item}
+      onCardClick={handleCardClick}
+    />
+  ))}
+
+
         </ul>
       </section>
     </main>
