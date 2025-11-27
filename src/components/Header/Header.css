@@ -1,34 +1,72 @@
+/* === WTWR FIGMA HEADER === */
 .header {
+  width: 100%;
+  height: 80px;                 
+  padding: 0 40px;             
+  padding-top: 32px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+}
+
+/* LEFT SIDE */
+.header__left {
   display: flex;
   align-items: center;
- margin-top: 32px;
+  gap: 24px;                    /* FIX: Matches Figma spacing */
 }
 
 .header__logo {
-  margin-right: 24px;
-  margin-left: 16px;
+  width: 90px;
+  height: 40px;
 }
-
-.header__logo-link {
-  display: inline-block;
-}
-
 
 .header__date-and-location {
   margin: 0;
-  font-family: "Cabinet Grotesk", Arial, sans-serif;
-  font-weight: 500;
   font-size: 20px;
-  line-height: 24px;
+  font-weight: 500;
+  color: #000;
 }
-/* Sign Up button (styled text button) */
-.header__signup-btn {
+
+/* RIGHT SIDE */
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 28px;                    /* FIX: Matches spacing between toggle/login */
+}
+
+.header__signup-btn,
+.header__login-btn {
   background: transparent;
   border: none;
   font-size: 18px;
   cursor: pointer;
   font-weight: 500;
 }
+
+.header__signup-btn:hover,
+.header__login-btn:hover {
+  opacity: 0.7;
+}
+
+/* Avatar when logged in */
+.header__profile-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+
 
 .header__login-btn {
   background: transparent;

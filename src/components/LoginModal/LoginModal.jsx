@@ -2,10 +2,19 @@ import React, { useState } from "react";
 import "./LoginModal.css";
 import { loginUser } from "../../utils/api";
 
-function LoginModal({ onClose, switchToSignup }) {
+function LoginModal({ isOpen, onClose, switchToSignup }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  // 🔥 do NOT render unless open
+  if (!isOpen) return null;
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("loginmodal__overlay")) {
+      onClose();
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,7 +23,9 @@ function LoginModal({ onClose, switchToSignup }) {
       .then(() => {
         setErrorMessage("");
         onClose();
-        window.location.reload(); // or refetch user/items
+
+        // reload safely to refresh UI state
+        window.location.reload();
       })
       .catch(() => {
         setErrorMessage("Email or password incorrect");
@@ -22,7 +33,7 @@ function LoginModal({ onClose, switchToSignup }) {
   };
 
   return (
-    <div className="loginmodal__overlay">
+    <div className="loginmodal__overlay" onClick={handleOverlayClick}>
       <div className="loginmodal__container">
         <button className="loginmodal__close" onClick={onClose}>
           ×
@@ -51,7 +62,6 @@ function LoginModal({ onClose, switchToSignup }) {
             required
           />
 
-          {/* ERROR MESSAGE */}
           {errorMessage && (
             <p className="loginmodal__error">{errorMessage}</p>
           )}

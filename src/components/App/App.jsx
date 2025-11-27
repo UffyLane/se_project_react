@@ -2,94 +2,102 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import CurrentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext";
 import "./App.css"; 
+
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
+
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
+
+import LoginModal from "../LoginModal/LoginModal";
+import SignupModal from "../SignupModal/SignupModal";
+
 import {
   fetchClothes,
   addClothingItem,
   deleteClothingItem,
 } from "../../utils/api";
+
 import { defaultClothingItems } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
-import { coordinates, ApiKey} from "../../utils/constants";
+import { coordinates, ApiKey } from "../../utils/constants";
 
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [clothingItems, setClothingItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [itemToDelete, setItemToDelete] = useState(null); // ✅ added this
+  const [itemToDelete, setItemToDelete] = useState(null);
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const handleToggleSwitchChange = () => {
-    setCurrentTemperatureUnit((prevUnit) => (prevUnit === "F" ? "C" : "F"));
-  }
-
-  useEffect(() => {
-    
-    const closeByEscape = (e) => {
-      if (e.key === "Escape") {
-        handleCloseModals();
-      }
-    }
-    document.addEventListener("keydown", closeByEscape);
-    return () => {
-      document.removeEventListener("keydown", closeByEscape);
-    }
-
-  }, []);
-
-  useEffect(() => {
-    fetchClothes()
-      .then((items) => setClothingItems(items))
-      .catch((err) => { console.warn(err);
-        setClothingItems(defaultClothingItems);
-      });
-  }, []);
-
-  useEffect(() => {
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const coords = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        getWeather(coords, ApiKey)
-          .then(filterWeatherData)
-          .then(setWeatherData)
-          .catch(console.error);
-
-      }, (error) => {
-        // If user denies geolocation or error occurs, use default coordinates
-        console.warn(`Geolocation error (${error.code}): ${error.message}. Using default coordinates.`);
-        getWeather(coordinates, ApiKey)
-          .then(filterWeatherData)
-          .then(setWeatherData)
-          .catch(console.error);
-      });
-    } else {
-      // Geolocation not supported, use default coordinates
-      getWeather(coordinates, ApiKey)
-        .then(filterWeatherData)
-        .then(setWeatherData)
-        .catch(console.error);
-    }
-  }, []);
-
-  // ---- Login/Signup Modals ----
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
+  // ---- Toggle Switch ----
+  const handleToggleSwitchChange = () => {
+    setCurrentTemperatureUnit((prevUnit) =>
+      prevUnit === "F" ? "C" : "F"
+    );
+  };
 
+  // ---- ESC to close ----
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") handleCloseModals();
+    };
 
+    document.addEventListener("keydown", closeByEscape);
+    return () =>
+      document.removeEventListener("keydown", closeByEscape);
+  }, []);
+
+  // ---- Fetch Clothes ----
+  useEffect(() => {
+    fetchClothes()
+      .then((items) => setClothingItems(items))
+      .catch((err) => {
+        console.warn(err);
+        setClothingItems(defaultClothingItems);
+      });
+  }, []);
+
+  // ---- Weather ----
+  useEffect(() => {
+    const loadWeather = (coords) => {
+      getWeather(coords, ApiKey)
+        .then(filterWeatherData)
+        .then(setWeatherData)
+        .catch(console.error);
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          loadWeather({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.warn(
+            `Geolocation error (${error.code}): ${error.message}. Using default coordinates.`
+          );
+          loadWeather(coordinates);
+        }
+      );
+    } else {
+      loadWeather(coordinates);
+    }
+  }, []);
+
+  // ---- Login / Signup ----
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
     setIsSignupModalOpen(false);
@@ -103,22 +111,6 @@ function App() {
   const closeLoginModal = () => setIsLoginModalOpen(false);
   const closeSignupModal = () => setIsSignupModalOpen(false);
 
-
-  {isLoginModalOpen && (
-  <LoginModal
-    onClose={closeLoginModal}
-    switchToSignup={openSignupModal}
-  />
-)}
-
-{isSignupModalOpen && (
-  <SignupModal
-    onClose={closeSignupModal}
-    switchToLogin={openLoginModal}
-  />
-)}
-
-
   // ---- Modal Controls ----
   const handleAddClick = () => setIsAddModalOpen(true);
 
@@ -127,97 +119,125 @@ function App() {
     setSelectedItem(null);
     setItemToDelete(null);
     setIsConfirmDeleteOpen(false);
+    setIsLoginModalOpen(false);
+    setIsSignupModalOpen(false);
   };
 
-  // ---- Add Item ----
+  // ---- Add Clothing Item ----
   const handleAddItem = (newItem) => {
     addClothingItem(newItem)
       .then((savedItem) => {
-        setClothingItems((prevItems) => [savedItem, ...prevItems]);
+        setClothingItems((prev) => [savedItem, ...prev]);
         handleCloseModals();
       })
       .catch(console.error);
   };
 
-  // ---- Open image modal ----
+  // ---- Item Card Click ----
   const handleCardClick = (item) => setSelectedItem(item);
 
-  // ---- Open delete confirmation ----
+  // ---- Delete ----
   const handleOpenDeleteConfirm = (item) => {
     setItemToDelete(item);
     setIsConfirmDeleteOpen(true);
   };
 
-  // ---- Delete confirmed ----
   const handleDeleteItem = () => {
-  deleteClothingItem(itemToDelete)
-    .then(() => {
-      setClothingItems((prevItems) =>
-        prevItems.filter((item) => item._id !== itemToDelete._id)
-      );
-      handleCloseModals();
-    })
-    .catch(console.error);
-};
+    deleteClothingItem(itemToDelete)
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== itemToDelete._id)
+        );
+        handleCloseModals();
+      })
+      .catch(console.error);
+  };
 
   return (
-    <CurrentTemperatureUnitContext.Provider value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
-    <div className="app">
-     <Header
-  handleAddClick={handleAddClick}
-  weatherData={weatherData || { city: "", temp: { F: 0, C: 0 } }}
-  openLoginModal={openLoginModal}
-  openSignupModal={openSignupModal}
-/>
+    <CurrentTemperatureUnitContext.Provider
+      value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+    >
+      <div className="app">
 
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Main
-              weatherData={
-                weatherData || { city: "", temp: { F: 0, C: 0 }, type: "hot" }
-              }
-              handleCardClick={handleCardClick}
-              clothingItems={clothingItems}
-            />
-          }
+        {/* HEADER */}
+        <Header
+          handleAddClick={handleAddClick}
+          weatherData={weatherData || { city: "", temp: { F: 0, C: 0 } }}
+          openLoginModal={openLoginModal}
+          openSignupModal={openSignupModal}
         />
-        <Route
-          path="/profile"
-          element={
-            <Profile
-              clothingItems={clothingItems}
-              onCardClick={handleCardClick}
-              onDeleteItem={handleOpenDeleteConfirm}
-              onAddNewClick={handleAddClick}
-            />
-          }
+
+        {/* ROUTES */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                weatherData={
+                  weatherData || {
+                    city: "",
+                    temp: { F: 0, C: 0 },
+                    type: "hot",
+                  }
+                }
+                handleCardClick={handleCardClick}
+                clothingItems={clothingItems}
+              />
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                clothingItems={clothingItems}
+                onCardClick={handleCardClick}
+                onDeleteItem={handleOpenDeleteConfirm}
+                onAddNewClick={handleAddClick}
+              />
+            }
+          />
+        </Routes>
+
+        {/* FOOTER */}
+        <Footer />
+
+        {/* ADD ITEM */}
+        <AddItemModal
+          isOpen={isAddModalOpen}
+          onClose={handleCloseModals}
+          onSubmit={handleAddItem}
         />
-      </Routes>
 
-      <Footer />
+        {/* ITEM PREVIEW MODAL */}
+        <ItemModal
+          isOpen={!!selectedItem}
+          onClose={handleCloseModals}
+          item={selectedItem}
+          onDeleteItem={handleOpenDeleteConfirm}
+        />
 
-      <AddItemModal
-        isOpen={isAddModalOpen}
-        onClose={handleCloseModals}
-        onSubmit={handleAddItem}
-      />
+        {/* CONFIRM DELETE */}
+        <ConfirmDeleteModal
+          isOpen={isConfirmDeleteOpen}
+          onClose={handleCloseModals}
+          onConfirm={handleDeleteItem}
+        />
 
-      <ItemModal
-        isOpen={!!selectedItem}
-        onClose={handleCloseModals}
-        item={selectedItem}
-        onDeleteItem={handleOpenDeleteConfirm}
-      />
+        {/* LOGIN */}
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={closeLoginModal}
+          switchToSignup={openSignupModal}
+        />
 
-      <ConfirmDeleteModal
-        isOpen={isConfirmDeleteOpen}
-        onClose={handleCloseModals}
-        onConfirm={handleDeleteItem}
-      />
-    </div>
+        {/* SIGNUP */}
+        <SignupModal
+          isOpen={isSignupModalOpen}
+          onClose={closeSignupModal}
+          switchToLogin={openLoginModal}
+        />
+      </div>
     </CurrentTemperatureUnitContext.Provider>
   );
 }

@@ -2,12 +2,21 @@ import React, { useState } from "react";
 import "./SignupModal.css";
 import { signupUser } from "../../utils/api";
 
-function SignupModal({ onClose, switchToLogin }) {
+function SignupModal({ isOpen, onClose, switchToLogin }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  // 🔥 don't render at all unless open
+  if (!isOpen) return null;
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("signupmodal__overlay")) {
+      onClose();
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +25,7 @@ function SignupModal({ onClose, switchToLogin }) {
       .then(() => {
         setErrorMessage("");
         onClose();
-        switchToLogin(); // sign up → send to login modal
+        switchToLogin(); // after sign up → show login modal
       })
       .catch((err) => {
         console.error(err);
@@ -25,7 +34,7 @@ function SignupModal({ onClose, switchToLogin }) {
   };
 
   return (
-    <div className="signupmodal__overlay">
+    <div className="signupmodal__overlay" onClick={handleOverlayClick}>
       <div className="signupmodal__container">
         <button className="signupmodal__close" onClick={onClose}>
           ×

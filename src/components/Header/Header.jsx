@@ -1,7 +1,6 @@
 import "./Header.css";
 import logo from "../../assets/Logo.svg";
 import avatar from "../../assets/avatar.svg";
-import { useState } from "react";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { NavLink } from "react-router-dom";
 
@@ -16,7 +15,8 @@ function Header({ weatherData, openLoginModal, openSignupModal }) {
 
   return (
     <header className="header">
-      {/* LEFT SIDE */}
+
+      {/* LEFT SIDE (Logo + Date) */}
       <div className="header__left">
         <NavLink to="/" className="header__logo-link">
           <img className="header__logo" alt="head-logo" src={logo} />
@@ -27,7 +27,7 @@ function Header({ weatherData, openLoginModal, openSignupModal }) {
         </p>
       </div>
 
-      {/* RIGHT SIDE */}
+      {/* RIGHT SIDE (toggle + auth links) */}
       <div className="header__right">
         <ToggleSwitch />
 
@@ -44,11 +44,7 @@ function Header({ weatherData, openLoginModal, openSignupModal }) {
         ) : (
           <NavLink className="header__profile-link" to="/profile">
             <p className="header__username">Terrence Tegegne</p>
-            <img
-              src={avatar}
-              alt="User avatar"
-              className="header__avatar"
-            />
+            <img src={avatar} className="header__avatar" alt="avatar" />
           </NavLink>
         )}
       </div>

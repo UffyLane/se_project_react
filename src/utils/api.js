@@ -27,21 +27,21 @@ export const handleServerResponse = async (response) => {
   return Promise.reject(`Error: ${response.status} - ${errorData.message}`);
 };
 
-// 🔥 GET Clothing Items (requires auth)
+// 🔥 GET Clothing Items
 export const fetchClothes = () => {
   return fetch(`${baseUrl}/items`, {
     headers: getHeaders(),
   }).then(handleServerResponse);
 };
 
-// 🔥 GET User Info (requires auth)
+// 🔥 GET User Info
 export const fetchUserInfo = () => {
   return fetch(`${baseUrl}/users/me`, {
     headers: getHeaders(),
   }).then(handleServerResponse);
 };
 
-// 🔥 PATCH User Info (requires auth)
+// 🔥 PATCH User Info
 export const updateUserInfo = (userData) => {
   return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
@@ -49,8 +49,6 @@ export const updateUserInfo = (userData) => {
     body: JSON.stringify(userData),
   }).then(handleServerResponse);
 };
-
-// signup and signin do not require auth
 
 // 🔥 POST Signup
 export const signupUser = (userData) => {
@@ -60,6 +58,7 @@ export const signupUser = (userData) => {
     body: JSON.stringify(userData),
   }).then(handleServerResponse);
 };
+
 // 🔥 POST Signin
 export const loginUser = (email, password) => {
   return fetch(`${baseUrl}/signin`, {
@@ -69,7 +68,16 @@ export const loginUser = (email, password) => {
   }).then(handleServerResponse);
 };
 
-// 🔥 DELETE Clothing Item (requires auth)
+// 🔥 POST Clothing Item (MISSING BEFORE — now fixed)
+export const addClothingItem = (itemData) => {
+  return fetch(`${baseUrl}/items`, {
+    method: "POST",
+    headers: getHeaders(),
+    body: JSON.stringify(itemData),
+  }).then(handleServerResponse);
+};
+
+// 🔥 DELETE Clothing Item
 export const deleteClothingItem = async (item) => {
   const id = item._id;
   const response = await fetch(`${baseUrl}/items/${id}`, {
@@ -78,3 +86,4 @@ export const deleteClothingItem = async (item) => {
   });
   return handleServerResponse(response);
 };
+
