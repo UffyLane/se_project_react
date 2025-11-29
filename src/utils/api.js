@@ -27,12 +27,11 @@ export const handleServerResponse = async (response) => {
   return Promise.reject(`Error: ${response.status} - ${errorData.message}`);
 };
 
-// 🔥 GET Clothing Items
+// 🔥 GET Clothing Items (PUBLIC — NO TOKEN)
 export const fetchClothes = () => {
-  return fetch(`${baseUrl}/items`, {
-    headers: getHeaders(),
-  }).then(handleServerResponse);
+  return fetch(`${baseUrl}/items`).then(handleServerResponse);
 };
+
 
 // 🔥 GET User Info
 export const fetchUserInfo = () => {
@@ -40,6 +39,13 @@ export const fetchUserInfo = () => {
     headers: getHeaders(),
   }).then(handleServerResponse);
 };
+
+export const getCurrentUser = () => {
+  return fetch(`${baseUrl}/users/me`, {
+    headers: getHeaders(),
+  }).then(handleServerResponse);
+};
+
 
 // 🔥 PATCH User Info
 export const updateUserInfo = (userData) => {
@@ -87,3 +93,18 @@ export const deleteClothingItem = async (item) => {
   return handleServerResponse(response);
 };
 
+// 🔥 LIKE item
+export const addCardLike = (id) => {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: getHeaders(),
+  }).then(handleServerResponse);
+};
+
+// 🔥 DISLIKE item
+export const removeCardLike = (id) => {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: getHeaders(),
+  }).then(handleServerResponse);
+};

@@ -174,13 +174,6 @@ export const defaultClothingItems = [
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweatshirt.png"
     },
     {
-      "_id": "1760993698973",
-      "name": "Pants",
-      "imageUrl": "https://media.istockphoto.com/id/1199337634/photo/ripped-torn-pattern-of-light-blue-denim-jeans.jpg?s=612x612&w=is&k=20&c=ZEO_LLl98raU9eZ7i6_bjejrvkn_TCyiNUQqd3h8UYw=",
-      "weather": "cold",
-      "id": 16
-    },
-    {
       "_id": 14,
       "id": 14,
       "name": "Beanie",

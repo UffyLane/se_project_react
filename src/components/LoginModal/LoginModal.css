@@ -1,15 +1,13 @@
-/* Background overlay */
 .loginmodal__overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 20;
 }
 
-/* White modal card */
 .loginmodal__container {
   background: white;
   border-radius: 12px;
@@ -19,25 +17,22 @@
   font-family: "Cabinet Grotesk", Arial, sans-serif;
 }
 
-/* Close X */
 .loginmodal__close {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: transparent;
   border: none;
+  background: none;
   font-size: 26px;
   cursor: pointer;
 }
 
-/* Title */
 .loginmodal__title {
   margin: 0 0 24px;
   font-size: 24px;
   font-weight: 600;
 }
 
-/* Labels */
 .loginmodal__label {
   font-size: 14px;
   margin-top: 16px;
@@ -45,45 +40,39 @@
   display: block;
 }
 
-/* Input underline style */
 .loginmodal__input {
   width: 100%;
   border: none;
   border-bottom: 1px solid #888;
   padding: 8px 0;
   font-size: 16px;
-  outline: none;
 }
 
-/* Error text */
 .loginmodal__error {
   color: #e63946;
   margin-top: 10px;
-  font-size: 14px;
 }
 
-/* Login button */
 .loginmodal__button {
   margin-top: 24px;
   padding: 10px 20px;
   background: black;
   color: white;
-  border: none;
   border-radius: 6px;
-  font-size: 16px;
+  border: none;
   cursor: pointer;
 }
 
 .loginmodal__button:disabled {
   background: #ccc;
-  cursor: not-allowed;
 }
 
-/* Switch link */
 .loginmodal__switch {
   display: inline-block;
   margin-left: 12px;
-  font-size: 14px;
   color: gray;
   cursor: pointer;
+}
+.loginmodal__switch:hover {
+  text-decoration: underline;
 }

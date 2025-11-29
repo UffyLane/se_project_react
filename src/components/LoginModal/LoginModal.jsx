@@ -1,41 +1,31 @@
 import React, { useState } from "react";
 import "./LoginModal.css";
-import { loginUser } from "../../utils/api";
 
-function LoginModal({ isOpen, onClose, switchToSignup }) {
+function LoginModal({ isOpen, onClose, switchToSignup, onLogin }) {
+  if (!isOpen) return null;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // 🔥 Don’t render if closed
-  if (!isOpen) return null;
-
-  const handleOverlayClick = (e) => {
-    if (e.target.classList.contains("loginmodal__overlay")) {
-      onClose();
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    loginUser(email, password)
-      .then((data) => {
-        localStorage.setItem("jwt", data.token);
+    onLogin({ email, password })
+      .then(() => {
         setErrorMessage("");
-        onClose();
-        window.location.reload(); // refresh UI
+        // App.jsx closes modal automatically
       })
       .catch(() => {
-        setErrorMessage("Email or password incorrect");
+        setErrorMessage("Incorrect email or password");
       });
   };
 
   return (
-    <div className="loginmodal__overlay" onClick={handleOverlayClick}>
+    <div className="loginmodal__overlay" onClick={onClose}>
       <div
         className="loginmodal__container"
-        onClick={(e) => e.stopPropagation()}  // 🔥 prevents accidental closing
+        onClick={(e) => e.stopPropagation()}
       >
         <button className="loginmodal__close" onClick={onClose}>
           ×
@@ -44,7 +34,7 @@ function LoginModal({ isOpen, onClose, switchToSignup }) {
         <h2 className="loginmodal__title">Log In</h2>
 
         <form className="loginmodal__form" onSubmit={handleSubmit}>
-          <label className="loginmodal__label">Email</label>
+          <label className="loginmodal__label">Email *</label>
           <input
             className="loginmodal__input"
             type="email"
@@ -54,7 +44,7 @@ function LoginModal({ isOpen, onClose, switchToSignup }) {
             required
           />
 
-          <label className="loginmodal__label">Password</label>
+          <label className="loginmodal__label">Password *</label>
           <input
             className="loginmodal__input"
             type="password"
@@ -86,3 +76,4 @@ function LoginModal({ isOpen, onClose, switchToSignup }) {
 }
 
 export default LoginModal;
+

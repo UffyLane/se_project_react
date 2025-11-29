@@ -53,6 +53,25 @@
   opacity: 0.7;
 }
 
+.header__add-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 20px;
+
+  color: #000;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.header__add-btn:hover {
+  opacity: 0.6;
+}
+
+
 /* Avatar when logged in */
 .header__profile-link {
   display: flex;
@@ -147,6 +166,21 @@
   color: inherit;
   gap:20px;
 }
+
+/* Fallback avatar if user has no avatar image */
+.header__avatar-placeholder {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ddd;               /* soft neutral like Figma */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;                    /* readable gray text */
+}
+/* --- MOBILE ADJUSTMENTS --- */
 
 @media screen and (max-width: 887px) {
   .header {

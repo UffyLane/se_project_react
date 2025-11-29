@@ -1,28 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EditProfileModal.css";
-import { updateUserInfo } from "../../utils/api";
 
-function EditProfileModal({ user, onClose, onUpdate }) {
-  const [name, setName] = useState(user.name);
-  const [avatar, setAvatar] = useState(user.avatar);
-  const [error, setError] = useState("");
+export default function EditProfileModal({
+  isOpen,
+  onClose,
+  user,
+  onUpdateUser,
+}) {
+  const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState("");
+
+  // Sync modal fields with current user data
+  useEffect(() => {
+    if (user && isOpen) {
+      setName(user.name);
+      setAvatar(user.avatar);
+    }
+  }, [user, isOpen]);
+
+  // Return early if closed or user missing
+  if (!isOpen || !user) return null;
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("profilemodal__overlay")) {
+      onClose();
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    updateUserInfo({ name, avatar })
-      .then((updatedUser) => {
-        onUpdate(updatedUser);
-        onClose();
-      })
-      .catch(() => {
-        setError("Failed to update profile");
-      });
+    // 🔥 FIX: App.jsx expects onUpdateUser(name, avatar)
+    onUpdateUser(name, avatar);
   };
 
   return (
-    <div className="profilemodal__overlay">
-      <div className="profilemodal__container">
+    <div className="profilemodal__overlay" onClick={handleOverlayClick}>
+      <div
+        className="profilemodal__container"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button className="profilemodal__close" onClick={onClose}>
           ×
         </button>
@@ -35,6 +52,8 @@ function EditProfileModal({ user, onClose, onUpdate }) {
           </label>
           <input
             className="profilemodal__input"
+            type="text"
+            placeholder="Your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -45,14 +64,14 @@ function EditProfileModal({ user, onClose, onUpdate }) {
           </label>
           <input
             className="profilemodal__input"
+            type="url"
+            placeholder="Link to an avatar image"
             value={avatar}
             onChange={(e) => setAvatar(e.target.value)}
             required
           />
 
-          {error && <p className="profilemodal__error">{error}</p>}
-
-          <button type="submit" className="profilemodal__button">
+          <button className="profilemodal__button" type="submit">
             Save changes
           </button>
         </form>
@@ -60,5 +79,3 @@ function EditProfileModal({ user, onClose, onUpdate }) {
     </div>
   );
 }
-
-export default EditProfileModal;

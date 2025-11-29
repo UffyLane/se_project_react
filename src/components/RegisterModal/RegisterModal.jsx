@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "./SignupModal.css";
-import { signupUser } from "../../utils/api";
+import "./RegisterModal.css";
 
-function SignupModal({ isOpen, onClose, switchToLogin }) {
+function RegisterModal({ isOpen, onClose, switchToLogin, onRegister }) {
   if (!isOpen) return null;
 
   const [name, setName] = useState("");
@@ -14,11 +13,10 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    signupUser({ name, avatar, email, password })
+    onRegister({ name, avatar, email, password })
       .then(() => {
         setErrorMessage("");
-        onClose();
-        switchToLogin(); 
+        // App.jsx closes modal automatically on success
       })
       .catch(() => {
         setErrorMessage("Could not create account");
@@ -26,21 +24,21 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
   };
 
   return (
-    <div className="signupmodal__overlay" onClick={onClose}>
+    <div className="registermodal__overlay" onClick={onClose}>
       <div
-        className="signupmodal__container"
+        className="registermodal__container"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="signupmodal__close" onClick={onClose}>
+        <button className="registermodal__close" onClick={onClose}>
           ×
         </button>
 
-        <h2 className="signupmodal__title">Sign Up</h2>
+        <h2 className="registermodal__title">Sign Up</h2>
 
-        <form className="signupmodal__form" onSubmit={handleSubmit}>
-          <label className="signupmodal__label">Name *</label>
+        <form className="registermodal__form" onSubmit={handleSubmit}>
+          <label className="registermodal__label">Name *</label>
           <input
-            className="signupmodal__input"
+            className="registermodal__input"
             type="text"
             placeholder="Your name"
             value={name}
@@ -48,9 +46,9 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
             required
           />
 
-          <label className="signupmodal__label">Avatar *</label>
+          <label className="registermodal__label">Avatar *</label>
           <input
-            className="signupmodal__input"
+            className="registermodal__input"
             type="url"
             placeholder="Link to an image"
             value={avatar}
@@ -58,9 +56,9 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
             required
           />
 
-          <label className="signupmodal__label">Email *</label>
+          <label className="registermodal__label">Email *</label>
           <input
-            className="signupmodal__input"
+            className="registermodal__input"
             type="email"
             placeholder="Email"
             value={email}
@@ -68,9 +66,9 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
             required
           />
 
-          <label className="signupmodal__label">Password *</label>
+          <label className="registermodal__label">Password *</label>
           <input
-            className="signupmodal__input"
+            className="registermodal__input"
             type="password"
             placeholder="Password"
             value={password}
@@ -79,18 +77,18 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
           />
 
           {errorMessage && (
-            <p className="signupmodal__error">{errorMessage}</p>
+            <p className="registermodal__error">{errorMessage}</p>
           )}
 
           <button
             type="submit"
-            className="signupmodal__button"
+            className="registermodal__button"
             disabled={!name || !avatar || !email || !password}
           >
             Create Account
           </button>
 
-          <span className="signupmodal__switch" onClick={switchToLogin}>
+          <span className="registermodal__switch" onClick={switchToLogin}>
             or Log In
           </span>
         </form>
@@ -99,4 +97,5 @@ function SignupModal({ isOpen, onClose, switchToLogin }) {
   );
 }
 
-export default SignupModal;
+export default RegisterModal;
+

@@ -1,39 +1,38 @@
 import "./ItemModal.css";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({ isOpen, onClose, item, onDeleteItem }) {
+  const currentUser = useContext(CurrentUserContext);
+
   if (!isOpen || !item) return null;
 
+  const isOwn = currentUser && item.owner === currentUser._id;
+
   return (
-    <div
-      className={`item-modal ${isOpen ? "item-modal_opened" : ""}`}
-      onClick={onClose}
-    >
+    <div className="modal" onClick={onClose}>
       <div
-        className="item-modal__content"
+        className="modal__content"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={onClose}
-          type="button"
-          className="item-modal__close"
-          aria-label="Close modal"
-        />
-        <img
-          src={item.imageUrl || item.link}
-          alt={item.name}
-          className="item-modal__image"
-        />
-        <div className="item-modal__footer">
-          <div className="item-modal__info">
-            <h2 className="item-modal__caption">{item.name}</h2>
-            <p className="item-modal__weather">Weather: {item.weather}</p>
-          </div>
-          <button
-            className="item-modal__delete"
-            onClick={() => onDeleteItem(item)}
-          >
-            Delete item
-          </button>
+        <button className="modal__close" onClick={onClose}>
+          ×
+        </button>
+
+        <img src={item.imageUrl} alt={item.name} className="modal__image" />
+        <div className="modal__info">
+          <h2 className="modal__title">{item.name}</h2>
+          <p className="modal__weather">Weather: {item.weather}</p>
+
+          {/* 🔥 Only owner sees delete button */}
+          {isOwn && (
+            <button
+              className="modal__delete-button"
+              onClick={() => onDeleteItem(item)}
+            >
+              Delete Item
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -41,3 +40,4 @@ function ItemModal({ isOpen, onClose, item, onDeleteItem }) {
 }
 
 export default ItemModal;
+
