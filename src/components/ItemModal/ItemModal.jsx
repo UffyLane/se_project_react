@@ -4,31 +4,50 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({ isOpen, onClose, item, onDeleteItem }) {
   const currentUser = useContext(CurrentUserContext);
+  if (!item || !isOpen) return null;
 
-  if (!isOpen || !item) return null;
-
-  const isOwn = currentUser && item.owner === currentUser._id;
+  // FIXED: owner check (handles both string and object)
+  const isOwn =
+    currentUser &&
+    (item.owner === currentUser._id ||
+      item.owner?._id === currentUser._id);
 
   return (
-    <div className="modal" onClick={onClose}>
+    <div
+      className={`item-modal ${isOpen ? "item-modal_opened" : ""}`}
+      onClick={onClose}
+    >
       <div
-        className="modal__content"
+        className="item-modal__content"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="modal__close" onClick={onClose}>
-          ×
-        </button>
+        <button
+          className="item-modal__close"
+          onClick={onClose}
+          type="button"
+          aria-label="Close"
+        />
 
-        <img src={item.imageUrl} alt={item.name} className="modal__image" />
-        <div className="modal__info">
-          <h2 className="modal__title">{item.name}</h2>
-          <p className="modal__weather">Weather: {item.weather}</p>
+        <img
+          className="item-modal__image"
+          src={item.imageUrl}
+          alt={item.name}
+        />
 
-          {/* 🔥 Only owner sees delete button */}
+        <div className="item-modal__footer">
+          <div className="item-modal__info">
+            <h2 className="item-modal__caption">{item.name}</h2>
+            <p className="item-modal__weather">Weather: {item.weather}</p>
+          </div>
+
           {isOwn && (
             <button
-              className="modal__delete-button"
-              onClick={() => onDeleteItem(item)}
+              className="item-modal__delete"
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDeleteItem(item); // opens ConfirmDeleteModal
+              }}
             >
               Delete Item
             </button>
@@ -40,4 +59,11 @@ function ItemModal({ isOpen, onClose, item, onDeleteItem }) {
 }
 
 export default ItemModal;
+
+
+
+
+
+
+
 

@@ -5,12 +5,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 20;
+  z-index: 9999;
+  visibility: hidden;
+  pointer-events: none;     /* ❗ FIX: modal cannot be clicked when hidden */
 }
 
 .item-modal_opened {
   visibility: visible;
+  pointer-events: all;       /* ❗ FIX: modal becomes fully clickable */
 }
+
 
 .item-modal__content {
   position: relative;
@@ -19,7 +23,7 @@
   max-width: 480px;
   width: 90%;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); /* floating look */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
 }
@@ -91,7 +95,7 @@
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
- align-self: flex-start;
+  align-self: flex-start;
 }
 
 .item-modal__delete:hover {
@@ -99,7 +103,6 @@
 }
 
 @media screen and (max-width: 887px) {
-
   .item-modal__close {
     width: 21px;
     height: 21px;

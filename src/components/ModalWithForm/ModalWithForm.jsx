@@ -1,5 +1,5 @@
 import "./ModalWithForm.css";
-
+import "../AddItemModal/AddItemModal.css";
 
 function ModalWithForm({
   children,
@@ -19,11 +19,11 @@ function ModalWithForm({
 
   return (
     <div
-      className={`modal ${isOpen ? "modal_opened" : ""}`}
+      className={`add-item-modal ${isOpen ? "add-item-modal_opened" : ""}`}
       onClick={onClose}
     >
       <div
-        className="modal__content"
+        className="add-item-modal__content"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -32,9 +32,16 @@ function ModalWithForm({
           className="add-item-modal__close"
           aria-label="Close modal"
         />
-        <form className="add-item-modal__form" onSubmit={handleSubmit} noValidate>
+
+        <form
+          className="add-item-modal__form"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <h2 className="add-item-modal__title">{title}</h2>
+
           {children}
+
           <button
             type="submit"
             className="add-item-modal__submit"
@@ -49,3 +56,4 @@ function ModalWithForm({
 }
 
 export default ModalWithForm;
+

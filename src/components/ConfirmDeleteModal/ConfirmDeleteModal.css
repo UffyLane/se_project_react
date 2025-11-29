@@ -1,0 +1,78 @@
+/* dark overlay */
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  z-index: 9999;
+}
+
+/* makes modal visible */
+.modal_opened {
+  visibility: visible;
+}
+
+/* white modal box */
+.modal__content {
+  background: #ffffff;
+  border-radius: 14px;      /* look of the mockup */
+  max-width: 440px;         /* match design */
+  width: 100%;
+  padding: 32px 24px;  /* spacing of the mockup */
+  position: relative;
+  text-align: center;
+}
+
+/* close button (X) */
+.modal__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: url("../../assets/close.svg") no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+}
+
+/* main title text */
+.modal__title {
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 20px;
+  line-height: 1.4;
+}
+
+/* button container */
+.modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* red delete text button */
+.modal__submit {
+  background: transparent;
+  border: none;
+  color: #f00;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* cancel button */
+.modal__cancel {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.modal__cancel:hover {
+  text-decoration: underline;
+}

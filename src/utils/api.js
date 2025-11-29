@@ -84,8 +84,7 @@ export const addClothingItem = (itemData) => {
 };
 
 // 🔥 DELETE Clothing Item
-export const deleteClothingItem = async (item) => {
-  const id = item._id;
+export const deleteClothingItem = async (id) => {
   const response = await fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: getHeaders(),

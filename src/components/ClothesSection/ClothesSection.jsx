@@ -6,13 +6,13 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 export default function ClothesSection({
   clothingItems,
   onCardClick,
-  onCardLike,     // <-- REQUIRED for like feature
+  onCardLike,
   onDeleteItem,
   onAddNewClick
 }) {
   const currentUser = useContext(CurrentUserContext);
 
-  // 🔥 Show ONLY the user's own items
+  // Show ONLY the user's own items
   const userItems = clothingItems.filter(
     (item) => item.owner === currentUser?._id
   );
@@ -37,9 +37,8 @@ export default function ClothesSection({
               key={item._id}
               item={item}
               onCardClick={onCardClick}
-              onCardLike={onCardLike}     // <-- MUST pass for like button
+              onCardLike={onCardLike}
               onDeleteItem={onDeleteItem}
-              variant="profile"
             />
           ))
         ) : (

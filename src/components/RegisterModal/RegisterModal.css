@@ -1,81 +1,107 @@
 .registermodal__overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5); /* darker like screenshot #1 */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 20;
+  z-index: 9999;
 }
 
+/* Modal box */
 .registermodal__container {
   background: white;
   border-radius: 12px;
-  padding: 32px;
+  padding: 28px 32px 36px;
   width: 420px;
   position: relative;
+  box-sizing: border-box;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
 }
 
+/* Close button — matches small gray X in screenshot #1 */
 .registermodal__close {
   position: absolute;
   top: 16px;
   right: 16px;
   border: none;
-  background: none;
-  font-size: 26px;
+  background: transparent url("../../assets/close.svg") no-repeat center/contain;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
 }
 
+/* Title — centered, bold, correct size */
 .registermodal__title {
-  margin: 0 0 24px;
-  font-size: 24px;
-  font-weight: 600;
+  margin: 8px 0 24px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
 }
 
+/* Form layout */
 .registermodal__form {
   display: flex;
   flex-direction: column;
 }
 
+/* Label text — small, gray, spaced correctly */
 .registermodal__label {
   font-size: 14px;
-  margin-top: 16px;
-  margin-bottom: 4px;
+  color: #444;
+  margin-top: 14px;
+  margin-bottom: 6px;
 }
 
+/* Inputs — black underline, identical to screenshot #1 */
 .registermodal__input {
   width: 100%;
   border: none;
-  border-bottom: 1px solid #888;
-  padding: 8px 0;
-  font-size: 16px;
+  border-bottom: 1px solid #ccc;
+  padding: 6px 0 8px;
+  font-size: 14px;
+  outline: none;
 }
 
+.registermodal__input:focus {
+  border-bottom: 1px solid #000;
+}
+
+/* Error message */
 .registermodal__error {
-  color: #e63946;
+  color: red;
+  font-size: 12px;
   margin-top: 10px;
 }
 
+/* Submit button — black, rounded, full width, exact sizing */
 .registermodal__button {
-  margin-top: 24px;
-  padding: 10px 20px;
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px 0;
   background: black;
   color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .registermodal__button:disabled {
-  background: #ccc;
+  background: #d3d3d3;
+  cursor: not-allowed;
 }
 
+/* "or Log In" link — centered, gray, clickable */
 .registermodal__switch {
-  margin-left: 12px;
-  color: gray;
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #888;
   cursor: pointer;
 }
+
 .registermodal__switch:hover {
   text-decoration: underline;
 }

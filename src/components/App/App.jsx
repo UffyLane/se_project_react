@@ -5,7 +5,6 @@ import CurrentTemperatureUnitContext from "../../contexts/currentTemperatureUnit
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./App.css";
 
-// Components
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
@@ -20,7 +19,6 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-// API
 import {
   fetchClothes,
   addClothingItem,
@@ -38,16 +36,13 @@ import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import { coordinates, ApiKey } from "../../utils/constants";
 
 function App() {
-  // ------------------------------------------------------------------------------------
-  // STATE
-  // ------------------------------------------------------------------------------------
   const [weatherData, setWeatherData] = useState(null);
   const [clothingItems, setClothingItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
 
-  const [user, setUser] = useState(null);     // current user context value
-  const isLoggedIn = !!user;                  // Task 2 requirement
+  const [user, setUser] = useState(null);
+  const isLoggedIn = !!user;
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
@@ -58,9 +53,7 @@ function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
-  // ------------------------------------------------------------------------------------
-  // REGISTER → AUTO LOGIN → LOAD USER
-  // ------------------------------------------------------------------------------------
+  // AUTH
   const handleRegister = ({ name, avatar, email, password }) => {
     return signupUser({ name, avatar, email, password })
       .then(() => loginUser(email, password))
@@ -72,12 +65,9 @@ function App() {
         setUser(userData);
         setIsSignupModalOpen(false);
       })
-      .catch((err) => console.error("Registration failed:", err));
+      .catch(console.error);
   };
 
-  // ------------------------------------------------------------------------------------
-  // LOGIN FLOW
-  // ------------------------------------------------------------------------------------
   const handleLogin = ({ email, password }) => {
     return loginUser(email, password)
       .then((res) => {
@@ -88,12 +78,9 @@ function App() {
         setUser(userData);
         setIsLoginModalOpen(false);
       })
-      .catch((err) => console.error("Login failed:", err));
+      .catch(console.error);
   };
 
-  // ------------------------------------------------------------------------------------
-  // VALIDATE TOKEN ON APP LOAD
-  // ------------------------------------------------------------------------------------
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) return;
@@ -106,9 +93,7 @@ function App() {
       });
   }, []);
 
-  // ------------------------------------------------------------------------------------
   // WEATHER
-  // ------------------------------------------------------------------------------------
   useEffect(() => {
     const loadWeather = (coords) => {
       getWeather(coords, ApiKey)
@@ -127,37 +112,27 @@ function App() {
     );
   }, []);
 
-  // ------------------------------------------------------------------------------------
-  // CLOTHING ITEMS
-  // ------------------------------------------------------------------------------------
+  // CLOTHING
   useEffect(() => {
     const token = localStorage.getItem("jwt");
 
     if (!token) {
-      // Guest users get demo data
       setClothingItems(defaultClothingItems);
       return;
     }
 
     fetchClothes()
-      .then((items) => setClothingItems(items))
+      .then(setClothingItems)
       .catch(() => setClothingItems([]));
   }, [isLoggedIn]);
 
-  // ------------------------------------------------------------------------------------
-  // TEMP TOGGLE
-  // ------------------------------------------------------------------------------------
   const handleToggleSwitchChange = () =>
     setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
 
-  // ------------------------------------------------------------------------------------
-  // LIKE / UNLIKE CARDS
-  // ------------------------------------------------------------------------------------
   const handleCardLike = ({ _id, likes }) => {
     if (!user) return;
 
     const isLiked = likes.some((id) => id === user._id);
-
     const likeAction = isLiked ? removeCardLike : addCardLike;
 
     likeAction(_id)
@@ -169,9 +144,6 @@ function App() {
       .catch(console.error);
   };
 
-  // ------------------------------------------------------------------------------------
-  // ADD ITEM
-  // ------------------------------------------------------------------------------------
   const handleAddItem = (newItem) => {
     if (!isLoggedIn) return;
 
@@ -183,32 +155,31 @@ function App() {
       .catch(console.error);
   };
 
-  // ------------------------------------------------------------------------------------
-  // DELETE ITEM
-  // ------------------------------------------------------------------------------------
+  // DELETE (FULLY FIXED)
   const handleDeleteItem = () => {
-    deleteClothingItem(itemToDelete)
-      .then(() =>
+    if (!itemToDelete) return;
+
+    const deleteId = itemToDelete._id || itemToDelete.id;
+
+    deleteClothingItem(deleteId)
+      .then(() => {
         setClothingItems((prev) =>
-          prev.filter((i) => i._id !== itemToDelete._id)
-        )
-      )
-      .then(handleCloseModals)
+          prev.filter((item) => {
+            const itemId = item._id || item.id;
+            return itemId !== deleteId;
+          })
+        );
+        handleCloseModals();
+      })
       .catch(console.error);
   };
 
-  // ------------------------------------------------------------------------------------
-  // LOGOUT
-  // ------------------------------------------------------------------------------------
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     setUser(null);
     window.location.href = "/";
   };
 
-  // ------------------------------------------------------------------------------------
-  // MODAL MANAGEMENT
-  // ------------------------------------------------------------------------------------
   const handleCloseModals = () => {
     setIsAddModalOpen(false);
     setIsConfirmDeleteOpen(false);
@@ -219,22 +190,15 @@ function App() {
     setIsEditProfileOpen(false);
   };
 
-  // ------------------------------------------------------------------------------------
-  // SAFE WEATHER FALLBACK (Important to avoid crashes)
-  // ------------------------------------------------------------------------------------
   const safeWeather =
     weatherData || { city: "", temp: { F: 0, C: 0 }, type: "warm" };
 
-  // ------------------------------------------------------------------------------------
-  // RENDER
-  // ------------------------------------------------------------------------------------
   return (
     <CurrentUserContext.Provider value={user}>
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <div className="app">
-          {/* HEADER ALREADY SWITCHES LAYOUT FOR GUEST / USER (TASK 5) */}
           <Header
             user={user}
             weatherData={safeWeather}
@@ -244,7 +208,6 @@ function App() {
           />
 
           <Routes>
-            {/* -------------------- HOME PAGE -------------------- */}
             <Route
               path="/"
               element={
@@ -253,12 +216,15 @@ function App() {
                   clothingItems={clothingItems}
                   handleCardClick={setSelectedItem}
                   onCardLike={handleCardLike}
-                  isLoggedIn={isLoggedIn}    // Task 5
+                  onDeleteItem={(item) => {
+                    setItemToDelete(item);
+                    setIsConfirmDeleteOpen(true);
+                  }}
+                  isLoggedIn={isLoggedIn}
                 />
               }
             />
 
-            {/* -------------------- PROFILE -------------------- */}
             <Route
               path="/profile"
               element={
@@ -267,7 +233,10 @@ function App() {
                     user={user}
                     clothingItems={clothingItems}
                     onCardClick={setSelectedItem}
-                    onDeleteItem={setItemToDelete}
+                    onDeleteItem={(item) => {
+                      setItemToDelete(item);
+                      setIsConfirmDeleteOpen(true);
+                    }}
                     onAddNewClick={() => setIsAddModalOpen(true)}
                     onEditProfile={() => setIsEditProfileOpen(true)}
                     onLogout={handleLogout}
@@ -280,7 +249,6 @@ function App() {
 
           <Footer />
 
-          {/* -------------------- MODALS -------------------- */}
           <AddItemModal
             isOpen={isAddModalOpen}
             onClose={handleCloseModals}
@@ -336,5 +304,4 @@ function App() {
 }
 
 export default App;
-
 

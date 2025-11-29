@@ -4,33 +4,42 @@ import CurrentTemperatureUnitContext from "../../contexts/currentTemperatureUnit
 import { useContext } from "react";
 import "./Main.css";
 
-function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
+function Main({
+  weatherData,
+  handleCardClick,
+  clothingItems,
+  onCardLike,
+  onDeleteItem,
+}) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
+
       <section className="cards">
         <p className="cards__text">
-          Today is {weatherData.temp[currentTemperatureUnit]}°{currentTemperatureUnit} / You may want to wear:
+          Today is {weatherData.temp[currentTemperatureUnit]}°
+          {currentTemperatureUnit} / You may want to wear:
         </p>
+
         <ul className="cards__list">
           {clothingItems
-  .filter((item) => {
-    const itemWeather = item?.weather?.toLowerCase?.() || "";
-    const weatherType = weatherData?.type?.toLowerCase?.() || "";
-    return itemWeather === weatherType;
-  })
-  .map((item) => (
-    <ItemCard
-      key={item.id || item._id || item.name}
-      item={item}
-      onCardClick={handleCardClick}
-      onCardLike={onCardLike}
-    />
-  ))}
-
-
+            .filter((item) => {
+              const itemWeather = item?.weather?.toLowerCase?.() || "";
+              const weatherType = weatherData?.type?.toLowerCase?.() || "";
+              return itemWeather === weatherType;
+            })
+            .map((item) => (
+              <ItemCard
+                key={item._id || item.id || item.name}
+                item={item}
+                onCardClick={handleCardClick}
+                onCardLike={onCardLike}
+                onDeleteItem={onDeleteItem}
+                variant="main"
+              />
+            ))}
         </ul>
       </section>
     </main>
@@ -38,3 +47,6 @@ function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
 }
 
 export default Main;
+
+
+
