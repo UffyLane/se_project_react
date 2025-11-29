@@ -2,7 +2,7 @@ import "./Header.css";
 import logo from "../../assets/Logo.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";   // ✅ REQUIRED
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Header({
@@ -12,7 +12,6 @@ function Header({
   onAddClick,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const navigate = useNavigate();
 
   const isLoggedIn = !!currentUser;
 
@@ -29,13 +28,15 @@ function Header({
     <header className="header">
       {/* LEFT SIDE — Logo + Date/Location */}
       <div className="header__left">
-        <img
-          className="header__logo"
-          alt="header logo"
-          src={logo}
-          onClick={() => navigate("/")}
-          style={{ cursor: "pointer" }}
-        />
+
+        {/* ✅ REQUIRED LINK TO "/" */}
+        <NavLink to="/" className="header__logo-link">
+          <img
+            className="header__logo"
+            alt="header logo"
+            src={logo}
+          />
+        </NavLink>
 
         <p className="header__date-and-location">
           {currentDate}, {weatherData?.city || ""}
@@ -75,12 +76,8 @@ function Header({
               + Add Clothes
             </button>
 
-            {/* Avatar + Name — Profile Link */}
-            <div
-              className="header__profile-link"
-              onClick={() => navigate("/profile")}
-              style={{ cursor: "pointer" }}
-            >
+            {/* ✅ REQUIRED LINK TO "/profile" */}
+            <NavLink to="/profile" className="header__profile-link">
               {currentUser.avatar ? (
                 <img
                   src={currentUser.avatar}
@@ -94,7 +91,7 @@ function Header({
               )}
 
               <p className="header__username">{currentUser.name}</p>
-            </div>
+            </NavLink>
           </>
         )}
       </div>
@@ -103,3 +100,4 @@ function Header({
 }
 
 export default Header;
+
