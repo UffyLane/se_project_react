@@ -31,9 +31,8 @@ import {
   removeCardLike,
 } from "../../utils/api";
 
-import { defaultClothingItems } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
-import { coordinates, ApiKey } from "../../utils/constants";
+import { coordinates, apiKey } from "../../utils/constants";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -53,7 +52,7 @@ function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
-  // AUTH
+  // REGISTER
   const handleRegister = ({ name, avatar, email, password }) => {
     return signupUser({ name, avatar, email, password })
       .then(() => loginUser(email, password))
@@ -65,9 +64,13 @@ function App() {
         setUser(userData);
         setIsSignupModalOpen(false);
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error(error);
+        throw error; // Required so modal can show error
+      });
   };
 
+  // LOGIN
   const handleLogin = ({ email, password }) => {
     return loginUser(email, password)
       .then((res) => {
@@ -78,9 +81,13 @@ function App() {
         setUser(userData);
         setIsLoginModalOpen(false);
       })
-      .catch(console.error);
+      .catch((e) => {
+        console.error(e);
+        throw e; // Required so modal can show error
+      });
   };
 
+  // GET CURRENT USER IF JWT EXISTS
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) return;
@@ -96,7 +103,7 @@ function App() {
   // WEATHER
   useEffect(() => {
     const loadWeather = (coords) => {
-      getWeather(coords, ApiKey)
+      getWeather(coords, apiKey)
         .then(filterWeatherData)
         .then(setWeatherData)
         .catch(console.error);
@@ -112,23 +119,20 @@ function App() {
     );
   }, []);
 
-  // CLOTHING
+  // ⭐ REQUIRED WTWR FIX — CLOTHING ALWAYS FETCHES FROM SERVER ⭐
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
-
-    if (!token) {
-      setClothingItems(defaultClothingItems);
-      return;
-    }
-
     fetchClothes()
       .then(setClothingItems)
-      .catch(() => setClothingItems([]));
-  }, [isLoggedIn]);
+      .catch((err) => {
+        console.error(err);
+        setClothingItems([]); // fallback only
+      });
+  }, []);
 
   const handleToggleSwitchChange = () =>
     setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
 
+  // LIKE
   const handleCardLike = ({ _id, likes }) => {
     if (!user) return;
 
@@ -144,6 +148,7 @@ function App() {
       .catch(console.error);
   };
 
+  // ADD ITEM
   const handleAddItem = (newItem) => {
     if (!isLoggedIn) return;
 
@@ -155,7 +160,7 @@ function App() {
       .catch(console.error);
   };
 
-  // DELETE (FULLY FIXED)
+  // DELETE
   const handleDeleteItem = () => {
     if (!itemToDelete) return;
 
@@ -304,4 +309,5 @@ function App() {
 }
 
 export default App;
+
 

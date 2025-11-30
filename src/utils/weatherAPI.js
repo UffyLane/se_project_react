@@ -1,9 +1,9 @@
 import { convertToCelsius } from "./helper";
 import {handleServerResponse} from "./api";
 
-export const getWeather = ({ latitude, longitude }, ApiKey) => {
+export const getWeather = ({ latitude, longitude }, apiKey) => {
   return fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${ApiKey}`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`
   ).then(handleServerResponse);
 };
 

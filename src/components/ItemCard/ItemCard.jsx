@@ -7,7 +7,6 @@ export default function ItemCard({
   onCardClick,
   onCardLike,
   onDeleteItem,
-  variant, // keeping this because your app passes it
 }) {
   const currentUser = useContext(CurrentUserContext);
   const isLoggedIn = !!currentUser;

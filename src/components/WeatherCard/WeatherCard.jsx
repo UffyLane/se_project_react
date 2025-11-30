@@ -2,6 +2,7 @@ import "./WeatherCard.css";
 import { useContext } from "react";
 import { weatherOptions, defaultWeatherOptions } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext";
+import { normalizeCondition } from "../../utils/weatherUtils";
 
 function WeatherCard({ weatherData }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
@@ -30,16 +31,6 @@ function WeatherCard({ weatherData }) {
       />
     </section>
   );
-}
-
-function normalizeCondition(condition) {
-  const map = {
-    mist: "fog",
-    haze: "fog",
-    drizzle: "rain",
-    thunderstorm: "storm",
-  };
-  return map[condition] || condition;
 }
 
 export default WeatherCard;

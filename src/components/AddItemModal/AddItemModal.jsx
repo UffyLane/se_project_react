@@ -38,14 +38,13 @@ const AddItemModal = ({ isOpen, onSubmit, onClose }) => {
   }
 
   return (
-    <ModalWithForm
-      title="New garment"
-        buttonText="Add garment"
-        isOpen={isOpen}
-        onClose={onClose}   
-        onSubmit={handleFormSubmit}
-      >
-
+   <ModalWithForm
+  title="New garment"
+  buttonText="Add garment"
+  isOpen={isOpen}
+  onClose={onClose}
+  onSubmit={handleFormSubmit}
+>
         <label htmlFor="name" className="modal__label">
           Name
           <input
