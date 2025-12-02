@@ -1,149 +1,97 @@
+/* CARD CONTAINER */
 .card {
-  width: 323px;
-  border-radius: 12px;
-  position: relative;
-  justify-content: center;
+  width: 328px;
+  height: auto;
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid #0000004D;
-  box-sizing: border-box;
-}
-
-.card:hover {
-  transform: translateY(2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* --- WRAPPER FOR NAME + HEART --- */
-.card__name-wrapper {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 20;
-  pointer-events: none;
-}
-
-.card__name {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  border-radius: 4px;
-  color: gray;
-  text-align: center;
-  margin: 0;
-  font-family: "Cabinet Grotesk", Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
-  padding: 2px 10px;
-  z-index: 20;
-}
-
-/* --- LIKE BUTTON (DEFAULT OUTLINE) --- */
-.card__like-btn {
-  width: 22px;
-  height: 22px;
-  position: relative;
-  background-image: url("../../assets/like.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
-  background-color: transparent;
   cursor: pointer;
-  z-index: 25;
-  pointer-events: auto;
-}
-
-/* --- LIKE BUTTON (FILLED BLACK) --- */
-.card__like-btn_liked {
-  background-image: url("../../assets/like(active).svg");
-}
-
-/* --- DELETE BUTTON --- */
-.card__delete-btn {
-  width: 22px;
-  height: 22px;
-  background: white;
-  color: #000;
-  border: 1px solid #0000004d;
-  border-radius: 50%;
-  font-size: 14px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 25;
-  pointer-events: auto;
-}
-
-/* Slight hover feedback */
-.card__delete-btn:hover {
-  background: #f2f2f2;
-}
-
-/* --- IMAGE STYLING --- */
-.card__image {
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  display: block;
-  object-fit: cover;
-}
-
-.card__image:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-  border-radius: 12px;
-}
-
-/* --- CARDS LIST --- */
-.cards__list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
-  gap: 21px;
-  margin-left: 40px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .cards__text {
-  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 16px;
   font-weight: 500;
-  font-size: 20px;
-  line-height: 100%;
+  color: #000000;
+  margin-top: 12px;
+  margin-bottom: 16px;
   margin-left: 40px;
-  margin-top: 40px;
-  margin-bottom: 34px;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
 }
 
-/* --- MOBILE --- */
-@media screen and (max-width: 887px) {
-  .cards__list {
-    padding-left: 19px;
-    padding-right: 19px;
-    max-width: 100%;
-    gap: 15px;
-  }
+/* IMAGE WRAPPER (needed for overlays) */
+.card__image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 328px;
+}
 
-  .card__image {
-    position: absolute;
-    width: 164px;
-    height: 164px;
-  }
+/* IMAGE */
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
 
+/* -------------------------------------- */
+/* 🔥 CENTERED OVERLAY: pill + heart next to it */
+/* -------------------------------------- */
+
+.card__name-wrapper {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+/* WHITE PILL BEHIND ONLY THE TEXT */
+.card__name {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 6px 12px;
+  border-radius: 12px;
+
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* HEART ICON — sits to the right of the pill */
+.card__like-btn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+
+  background: url("../../assets/like.svg") center / contain no-repeat;
+}
+
+/* ACTIVE HEART */
+.card__like-btn_liked {
+  background: url("../../assets/like(active).svg") center / contain no-repeat;
+}
+
+/* MOBILE */
+@media screen and (max-width: 640px) {
   .card {
-    width: 164px;
-    height: 164px;
+    width: 100%;
+    max-width: 343px;
+    margin: 0 auto;
   }
 
-  .cards__text {
-    font-size: 15px;
+  .card__image-wrapper {
+    height: 343px;
   }
 }
+
+
+
+
+
 

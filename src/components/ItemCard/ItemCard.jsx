@@ -2,15 +2,11 @@ import React, { useContext } from "react";
 import "./ItemCard.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-export default function ItemCard({
-  item,
-  onCardClick,
-  onCardLike,
-  onDeleteItem,
-}) {
+export default function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
   const isLoggedIn = !!currentUser;
 
+  // Check if user liked this item
   const isLiked =
     isLoggedIn &&
     Array.isArray(item.likes) &&
@@ -28,19 +24,25 @@ export default function ItemCard({
 
   return (
     <li className="card" onClick={() => onCardClick(item)}>
-      <div className="card__name-wrapper">
-        <span className="card__name">{item.name}</span>
+      <div className="card__image-wrapper">
+        <img className="card__image" src={item.imageUrl} alt={item.name} />
 
-        {isLoggedIn && (
-          <button
-            className={likeButtonClass}
-            onClick={handleLike}
-            aria-label="like"
-          />
-        )}
+        {/* CENTERED NAME + HEART */}
+        <div className="card__name-wrapper">
+          <span className="card__name">{item.name}</span>
+
+          {isLoggedIn && (
+            <button
+              className={likeButtonClass}
+              onClick={handleLike}
+              aria-label={isLiked ? "Unlike item" : "Like item"}
+            />
+          )}
+        </div>
       </div>
-
-      <img className="card__image" src={item.imageUrl} alt={item.name} />
     </li>
   );
 }
+
+
+
