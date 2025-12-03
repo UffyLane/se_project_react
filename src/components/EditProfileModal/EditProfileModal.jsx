@@ -31,7 +31,14 @@ export default function EditProfileModal({
     e.preventDefault();
 
     // 🔥 FIX: App.jsx expects onUpdateUser(name, avatar)
-    onUpdateUser={handleUpdateUser}
+    onUpdateUser={name, avatar}
+      .then(() => {
+        onClose(); // Close modal on success
+      })
+      .catch((error) => {
+        console.error("Failed to update user:", error);
+        // Optionally, show error to user
+      });
   };
 
   return (

@@ -51,7 +51,7 @@ export const getCurrentUser = () => {
 export const updateUserInfo = ({ name, avatar }) => {
   const token = localStorage.getItem("jwt");
 
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
