@@ -1,3 +1,25 @@
 .main {
   flex: 1;
 }
+
+.cards__list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(328px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+@media screen and (max-width: 887px) {
+  .main {
+    margin-top: 16px;
+  }
+
+  .cards__list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 16px 0 0;
+  }
+}

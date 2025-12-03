@@ -1,55 +1,88 @@
-/* === SIDEBAR WRAPPER === */
+/* == WRAPPER == */
 .sidebar {
   width: 100%;
-  max-width: 440px;               /* Matches Figma card width */
-  padding: 40px 32px;             /* Figma spacing */
-  border-radius: 12px;            /* Soft edges like Figma */
-  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  max-width: 440px;
+  padding: 40px 24px;
   display: flex;
   flex-direction: column;
-  gap: 32px;                      /* Space between sections */
+  gap: 48px;
+  box-sizing: border-box;
 }
 
-/* === PROFILE HEADER AREA === */
+/* == USER SECTION == */
 .sidebar__profile {
   display: flex;
   align-items: center;
-  gap: 24px;                      /* Space between avatar + name */
+  gap: 24px;
 }
 
+/* AVATAR */
 .sidebar__avatar {
-  width: 80px;                    /* Figma avatar size */
+  width: 80px;
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-/* USER NAME */
+.sidebar__avatar-placeholder {
+  background-color: #EDEDED;
+  color: #555;
+  font-size: 32px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* NAME */
 .sidebar__name {
   margin: 0;
-  font-size: 32px;                /* Figma font size */
-  line-height: 100%;
-  font-weight: 700;               /* Figma uses bold */
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
   color: #000;
 }
 
-/* === LINKS SECTION === */
+/* == ACTION BUTTONS == */
+.sidebar__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* “LINK” BUTTONS (Figma style, NOT <a> tags) */
 .sidebar__link {
-  font-size: 28px;                /* Exact Figma size */
-  font-weight: 500;               /* Medium weight */
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
   color: #000;
   cursor: pointer;
-  margin: 0;
+  text-align: left;
+
+  transition: opacity 0.2s ease;
 }
 
 .sidebar__link:hover {
   opacity: 0.6;
 }
 
-/* Last element spacing fix */
-.sidebar__actions {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;                      /* Matches vertical spacing */
-}
+/* MOBILE RESPONSIVE */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    max-width: 100%;
+    padding: 24px 16px;
+  }
 
+  .sidebar__name {
+    font-size: 28px;
+  }
+
+  .sidebar__link {
+    font-size: 22px;
+  }
+}

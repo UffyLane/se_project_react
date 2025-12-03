@@ -48,13 +48,19 @@ export const getCurrentUser = () => {
 
 
 // 🔥 PATCH User Info
-export const updateUserInfo = (userData) => {
-  return fetch(`${baseUrl}/users/me`, {
+export const updateUserInfo = ({ name, avatar }) => {
+  const token = localStorage.getItem("jwt");
+
+  return fetch(`${BASE_URL}/users/me`, {
     method: "PATCH",
-    headers: getHeaders(),
-    body: JSON.stringify(userData),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
   }).then(handleServerResponse);
 };
+
 
 // 🔥 POST Signup
 export const signupUser = (userData) => {

@@ -31,7 +31,7 @@ export default function EditProfileModal({
     e.preventDefault();
 
     // 🔥 FIX: App.jsx expects onUpdateUser(name, avatar)
-    onUpdateUser(name, avatar);
+    onUpdateUser={handleUpdateUser}
   };
 
   return (

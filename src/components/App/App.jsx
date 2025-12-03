@@ -119,6 +119,19 @@ function App() {
     );
   }, []);
 
+  const handleUpdateUser = ({ name, avatar }) => {
+  return updateUserInfo({ name, avatar })
+    .then((updatedUser) => {
+      setUser(updatedUser);       // ⭐ update React state
+      setIsEditProfileOpen(false); // close modal
+    })
+    .catch((err) => {
+      console.error(err);
+      throw err; // so modal can display errors if needed
+    });
+};
+
+
   // ⭐ REQUIRED WTWR FIX — CLOTHING ALWAYS FETCHES FROM SERVER ⭐
   useEffect(() => {
     fetchClothes()
@@ -300,7 +313,7 @@ function App() {
             isOpen={isEditProfileOpen}
             onClose={handleCloseModals}
             user={user}
-            onUpdateUser={updateUserInfo}
+            onUpdateUser={handleUpdateUser}
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>

@@ -1,21 +1,17 @@
 import "./SideBar.css";
 
 export default function SideBar({ user, onEditProfile, onLogout }) {
-  if (!user) return <p>Loading...</p>;
+  if (!user) return null;
 
-  const userInitial = user.name ? user.name.charAt(0).toUpperCase() : "?";
+  const userInitial = user?.name?.charAt(0).toUpperCase() || "?";
 
   return (
     <aside className="sidebar">
 
-      {/* PROFILE HEADER */}
+      {/* USER AREA */}
       <div className="sidebar__profile">
         {user.avatar ? (
-          <img
-            src={user.avatar}
-            alt="User avatar"
-            className="sidebar__avatar"
-          />
+          <img src={user.avatar} alt="User avatar" className="sidebar__avatar" />
         ) : (
           <div className="sidebar__avatar sidebar__avatar-placeholder">
             {userInitial}
@@ -27,15 +23,16 @@ export default function SideBar({ user, onEditProfile, onLogout }) {
 
       {/* ACTION BUTTONS */}
       <div className="sidebar__actions">
-        <p className="sidebar__link" onClick={onEditProfile}>
+        <button className="sidebar__link" onClick={onEditProfile}>
           Change profile data
-        </p>
+        </button>
 
-        <p className="sidebar__link" onClick={onLogout}>
+        <button className="sidebar__link" onClick={onLogout}>
           Log out
-        </p>
+        </button>
       </div>
 
     </aside>
   );
 }
+
