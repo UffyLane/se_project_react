@@ -23,23 +23,14 @@ export default function EditProfileModal({
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains("profilemodal__overlay")) {
-      onClose();
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  onUpdateUser({ name, avatar });
+};
 
-    // 🔥 FIX: App.jsx expects onUpdateUser(name, avatar)
-    onUpdateUser={name, avatar}
-      .then(() => {
-        onClose(); // Close modal on success
-      })
-      .catch((error) => {
-        console.error("Failed to update user:", error);
-        // Optionally, show error to user
-      });
-  };
 
   return (
     <div className="profilemodal__overlay" onClick={handleOverlayClick}>
