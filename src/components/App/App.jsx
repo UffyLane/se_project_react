@@ -16,7 +16,7 @@ import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
-import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import EditProfileModal from "../EditProfileModal/EditprofileModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import {
