@@ -174,23 +174,28 @@ function App() {
   };
 
   // DELETE
-  const handleDeleteItem = () => {
-    if (!itemToDelete) return;
+const handleDeleteItem = () => {
+  if (!itemToDelete) return;
 
-    const deleteId = itemToDelete._id || itemToDelete.id;
+  const deleteId = itemToDelete?._id || itemToDelete?.id;
 
-    deleteClothingItem(deleteId)
-      .then(() => {
-        setClothingItems((prev) =>
-          prev.filter((item) => {
-            const itemId = item._id || item.id;
-            return itemId !== deleteId;
-          })
-        );
-        handleCloseModals();
-      })
-      .catch(console.error);
-  };
+  if (!deleteId) {
+    console.error("Cannot delete item without id:", itemToDelete);
+    return;
+  }
+
+  deleteClothingItem(deleteId)
+    .then(() => {
+      setClothingItems((prev) =>
+        prev.filter((item) => {
+          const itemId = item._id || item.id;
+          return itemId !== deleteId;
+        })
+      );
+      handleCloseModals();
+    })
+    .catch(console.error);
+};
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
