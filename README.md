@@ -44,3 +44,11 @@ Still having trouble getting project to have the same look as figma. Still worki
 https://github.com/UffyLane/se_project_express
 
 
+**Frontend:**
+https://uffywtwr.vercel.app/
+
+**Backend API:** 
+https://wtwr-api-y96m.onrender.com
+
+
+
