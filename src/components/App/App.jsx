@@ -52,6 +52,8 @@ function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
+  const normalizeResponse = (response) => response.data || response;
+
   // REGISTER
   const handleRegister = ({ name, avatar, email, password }) => {
     return signupUser({ name, avatar, email, password })
@@ -61,12 +63,12 @@ function App() {
         return getCurrentUser();
       })
       .then((userData) => {
-        setUser(userData);
+        setUser(normalizeResponse(userData));
         setIsSignupModalOpen(false);
       })
       .catch((error) => {
         console.error(error);
-        throw error; // Required so modal can show error
+        throw error;
       });
   };
 
@@ -78,12 +80,12 @@ function App() {
         return getCurrentUser();
       })
       .then((userData) => {
-        setUser(userData);
+        setUser(normalizeResponse(userData));
         setIsLoginModalOpen(false);
       })
       .catch((e) => {
         console.error(e);
-        throw e; // Required so modal can show error
+        throw e;
       });
   };
 
@@ -93,7 +95,7 @@ function App() {
     if (!token) return;
 
     getCurrentUser()
-      .then((data) => setUser(data))
+      .then((data) => setUser(normalizeResponse(data)))
       .catch(() => {
         localStorage.removeItem("jwt");
         setUser(null);
@@ -120,25 +122,24 @@ function App() {
   }, []);
 
   const handleUpdateUser = ({ name, avatar }) => {
-  return updateUserInfo({ name, avatar })
-    .then((updatedUser) => {
-      setUser(updatedUser);       // ⭐ update React state
-      setIsEditProfileOpen(false); // close modal
-    })
-    .catch((err) => {
-      console.error(err);
-      throw err; // so modal can display errors if needed
-    });
-};
-
-
-  // ⭐ REQUIRED WTWR FIX — CLOTHING ALWAYS FETCHES FROM SERVER ⭐
-  useEffect(() => {
-    fetchClothes()
-      .then(setClothingItems)
+    return updateUserInfo({ name, avatar })
+      .then((updatedUser) => {
+        setUser(normalizeResponse(updatedUser));
+        setIsEditProfileOpen(false);
+      })
       .catch((err) => {
         console.error(err);
-        setClothingItems([]); // fallback only
+        throw err;
+      });
+  };
+
+  // CLOTHING ALWAYS FETCHES FROM SERVER
+  useEffect(() => {
+    fetchClothes()
+      .then((items) => setClothingItems(items.data || items))
+      .catch((err) => {
+        console.error(err);
+        setClothingItems([]);
       });
   }, []);
 
@@ -154,8 +155,10 @@ function App() {
 
     likeAction(_id)
       .then((updatedItem) => {
+        const normalizedItem = normalizeResponse(updatedItem);
+
         setClothingItems((prev) =>
-          prev.map((item) => (item._id === _id ? updatedItem : item))
+          prev.map((item) => (item._id === _id ? normalizedItem : item))
         );
       })
       .catch(console.error);
@@ -167,35 +170,35 @@ function App() {
 
     addClothingItem(newItem)
       .then((saved) => {
-        setClothingItems((prev) => [saved.data, ...prev]);
+        setClothingItems((prev) => [normalizeResponse(saved), ...prev]);
         handleCloseModals();
       })
       .catch(console.error);
   };
 
   // DELETE
-const handleDeleteItem = () => {
-  if (!itemToDelete) return;
+  const handleDeleteItem = () => {
+    if (!itemToDelete) return;
 
-  const deleteId = itemToDelete?._id || itemToDelete?.id;
+    const deleteId = itemToDelete?._id || itemToDelete?.id;
 
-  if (!deleteId) {
-    console.error("Cannot delete item without id:", itemToDelete);
-    return;
-  }
+    if (!deleteId) {
+      console.error("Cannot delete item without id:", itemToDelete);
+      return;
+    }
 
-  deleteClothingItem(deleteId)
-    .then(() => {
-      setClothingItems((prev) =>
-        prev.filter((item) => {
-          const itemId = item._id || item.id;
-          return itemId !== deleteId;
-        })
-      );
-      handleCloseModals();
-    })
-    .catch(console.error);
-};
+    deleteClothingItem(deleteId)
+      .then(() => {
+        setClothingItems((prev) =>
+          prev.filter((item) => {
+            const itemId = item._id || item.id;
+            return itemId !== deleteId;
+          })
+        );
+        handleCloseModals();
+      })
+      .catch(console.error);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
