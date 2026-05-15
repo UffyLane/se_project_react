@@ -167,7 +167,7 @@ function App() {
 
     addClothingItem(newItem)
       .then((saved) => {
-        setClothingItems((prev) => [saved, ...prev]);
+        setClothingItems((prev) => [saved.data, ...prev]);
         handleCloseModals();
       })
       .catch(console.error);
