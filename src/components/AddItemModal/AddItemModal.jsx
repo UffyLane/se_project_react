@@ -28,7 +28,6 @@ const AddItemModal = ({ isOpen, onSubmit, onClose }) => {
     }
 
     const newItem = {
-      _id: Date.now().toString(),
       name: values.name,
       imageUrl: values.imageUrl,
       weather: values.weather,
