@@ -1,6 +1,7 @@
 // src/utils/auth.js
 
-const BASE_URL = "http://localhost:3001"; // change if needed
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 
 // ---------------- SIGN UP ----------------
 export const signup = ({ name, avatar, email, password }) => {

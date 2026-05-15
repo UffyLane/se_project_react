@@ -1,4 +1,6 @@
-const baseUrl = "http://localhost:3001";
+const baseUrl = import.meta.env.VITE_API_URL;
+
+
 
 // 🔑 Always include JWT token in headers
 const getHeaders = () => {
