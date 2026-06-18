@@ -1,54 +1,148 @@
 # WTWR (What to Wear?)
 
-## About the project
+> **Weather-based clothing recommendations for your day.**
 
-The idea of the application is pretty simple - we make a call to an API, which then responds with the daily weather forecast. We collect the weather data, process it, and then based on the forecast, we recommend suitable clothing to the user.
+🌤️ **[Live App](https://uffywtwr.vercel.app)** | ⚙️ **[Backend API](https://github.com/UffyLane/se_project_express)**
 
+---
 
+## About
 
-## Links
+WTWR fetches your local weather and recommends what to wear based on the temperature. Users can build a personal wardrobe, add clothing items tagged by weather type, and the app surfaces the right items for the day's conditions.
 
-- [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
+---
 
-Project URL : https://UffyLane.github.io/se_project_react/
+## Try It
+
+**Live app:** https://uffywtwr.vercel.app
+
+Test credentials:
+- **Email:** test@wtwr.com
+- **Password:** Test1234!
+
+Or create your own account and add clothing items to your wardrobe.
+
+---
 
 ## Features
 
-![Person hovers over a clothing item in the WTWR app interface, highlighting recommended attire based on current weather conditions; the interface displays weather details and clothing options in a clean, modern layout. The environment is digital and user-friendly, with an informative and helpful tone. No visible text is present.] `hover-image.png`
+- **Live weather** — fetches real-time conditions using your location via the OpenWeatherMap API
+- **Temperature toggle** — switch between °F and °C
+- **Wardrobe management** — add, view, and delete clothing items tagged as hot / warm / cold
+- **Weather-matched recommendations** — only shows items suited to today's temperature
+- **Authentication** — sign up, log in, and manage your profile with JWT
+- **Like items** — save your favorite clothing cards
+- **Protected routes** — profile and wardrobe require authentication
+- **Responsive design** — works on mobile and desktop
 
-![Weather thermometer icon with a blue and red gradient, representing temperature in the WTWR app; the background is minimal and clean, conveying a neutral and informative tone. No visible text is present.]`weather-therm.png`
+---
 
-![Header menu displaying navigation options for the WTWR app, including links to Therm Change, Add Clothes, and Profile; the menu is arranged horizontally in a clean, modern interface with a neutral and user-friendly tone. The background is minimal, and the menu is designed for easy navigation. Visible text includes Therm Change, Add Clothes, and Profile.]`header-menu.png`
+## Tech Stack
 
-![Modal window displaying detailed information about a selected clothing item in the WTWR app; the modal includes an image of the item, its name, weather suitability, and options to add or remove the item from the user's collection. The interface is clean and modern, with a neutral and informative tone. Visible text includes the item name, weather suitability, and action buttons.]`open-item-modal.png`
+**Frontend**
+- React
+- Vite
+- React Router v6
+- Context API
+- CSS Modules
 
-![Add item modal in the WTWR app interface showing a clothing item with its image, name, and weather suitability. The modal includes buttons labeled Add and Cancel, allowing users to add the item to their collection or close the modal. The environment is clean and modern, designed for easy interaction. The tone is neutral and user-friendly.]`add-item-modal.png`
+**Backend**
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT authentication
+- bcrypt password hashing
+- Input validation
+- Centralized error handling
 
-![Profile page of the WTWR app showing user information, profile picture, and a list of saved clothing items. The interface includes navigation options such as Therm Change, Add Clothes, and Profile, all displayed in a clean and modern layout. The environment is digital and user-friendly, with a neutral and welcoming tone. Visible text includes Therm Change, Add Clothes, and Profile.]`Profile-page.png`
+**APIs**
+- OpenWeatherMap API (current weather by coordinates)
+- Browser Geolocation API
 
-![Profile sidebar displaying user information, profile picture, and navigation links for Change profile data and logout. The sidebar is arranged vertically in a clean, modern interface with a neutral and welcoming tone.]`profile-sidebar.png`
+---
 
-![Mobile screen displaying the WTWR app interface with weather details and recommended clothing items. The main section shows temperature and weather icons at the top, followed by a list of clothing options with images and names. Navigation buttons are visible at the bottom, labeled Therm Change, Add Clothes, and Profile. The environment is clean and modern, designed for easy interaction. The tone is neutral and user-friendly.]`mobile-screen.png`
+## Project Structure
 
-![Mobile menu in the WTWR app is open, displaying navigation options arranged vertically. The menu includes buttons labeled Therm Change, Add Clothes, and Profile. The background is minimal and clean, designed for easy navigation. The tone is neutral and user-friendly.]`mobile-menu-open.png`
+```
+se_project_react/
+│
+├── src/
+│   ├── components/
+│   │   ├── Header/
+│   │   ├── Main/
+│   │   ├── Profile/
+│   │   ├── WeatherCard/
+│   │   ├── ItemModal/
+│   │   ├── AddItemModal/
+│   │   ├── LoginModal/
+│   │   ├── RegisterModal/
+│   │   ├── EditProfileModal/
+│   │   ├── ConfirmDeleteModal/
+│   │   └── ProtectedRoute/
+│   ├── contexts/
+│   │   ├── CurrentUserContext.js
+│   │   └── currentTemperatureUnitContext.js
+│   ├── hooks/
+│   ├── utils/
+│   │   ├── api.js          # Backend API calls
+│   │   ├── weatherAPI.js   # OpenWeatherMap calls
+│   │   └── constants.js    # Coordinates, weather options
+│   └── assets/
+│       ├── day/            # Daytime weather images
+│       └── night/          # Nighttime weather images
+```
 
-![WTWR app navigation header logo featuring stylized text WTWR in bold modern font; the logo is centered within a clean minimal interface, conveying a welcoming and professional tone. The background is neutral, supporting easy readability and accessibility. Logo is button enabled for smooth transitions between pages.]`nav-header-logo.png`
+---
 
-## Problems
+## Running Locally
 
-Still having trouble getting project to have the same look as figma. Still working on proper arguments so I use co pilot to help me clean my code up.
+**Clone the repo**
+```bash
+git clone https://github.com/UffyLane/se_project_react.git
+cd se_project_react
+npm install
+```
 
+**Create `.env`:**
+```
+VITE_API_URL=http://localhost:3001
+VITE_WEATHER_API_KEY=your_openweathermap_key
+```
 
-## Backend Repository Link
+**Start the app:**
+```bash
+npm run dev
+# runs at http://localhost:5173
+```
 
-https://github.com/UffyLane/se_project_express
+> You'll also need the backend running locally. See the [backend repo](https://github.com/UffyLane/se_project_express) for setup instructions.
 
+---
 
-**Frontend:**
-https://uffywtwr.vercel.app/
+## How It Works
 
-**Backend API:** 
-https://wtwr-api-y96m.onrender.com
+1. On load, the app requests your location via the browser Geolocation API
+2. Coordinates are sent to OpenWeatherMap to fetch current temperature and conditions
+3. The temperature is matched against clothing items in your wardrobe (hot > 86°F, warm 66–86°F, cold < 66°F)
+4. Matching items are displayed on the main page
+5. Logged-in users can add new items, like items, and manage their profile
 
+---
 
+## Deployment
 
+- **Frontend:** Vercel (auto-deploys from `main`)
+- **Backend:** Render (Node.js web service)
+- **Database:** MongoDB Atlas
+
+---
+
+## Author
+
+**Stuart G. Clark Jr.**
+[GitHub](https://github.com/UffyLane)
+
+---
+
+## License
+
+MIT
