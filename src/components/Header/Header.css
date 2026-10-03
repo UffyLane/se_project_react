@@ -168,6 +168,11 @@
     max-width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;
+    /* The header wraps onto two rows on small screens; a fixed 80px height
+       let the page content slide up underneath the second row. */
+    height: auto;
+    padding: 24px 16px 4px;
+    row-gap: 12px;
   }
 
   .header__logo {

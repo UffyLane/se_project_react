@@ -30,12 +30,14 @@
 
   .footer__container {
     position: relative;
-    left: 16px;
     bottom: 0;
     width: 100%;
+    box-sizing: border-box;
     text-align: center;
     top: 40px;
-    padding: 0;
+    /* Was `left: 16px` with width: 100%, which pushed the footer 16px past
+       the right edge of the screen and caused sideways scrolling on phones. */
+    padding: 0 16px;
   }
 
   .footer__year {

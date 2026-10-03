@@ -2,13 +2,12 @@ import "./WeatherCard.css";
 import { useContext } from "react";
 import { weatherOptions, defaultWeatherOptions } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../../contexts/currentTemperatureUnitContext";
-import { normalizeCondition } from "../../utils/normalizeCondition";
 
 function WeatherCard({ weatherData }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
-  // Normalize condition from API (e.g., mist/drizzle -> fog/rain fallback)
-  const normalizedCondition = normalizeCondition(weatherData.condition);
+  // weatherAPI.js already normalizes the condition (mist/haze -> fog, etc.)
+  const normalizedCondition = weatherData.condition;
 
   const filteredOptions = weatherOptions.filter((option) => {
     return option.day === weatherData.isDay && option.condition === normalizedCondition;

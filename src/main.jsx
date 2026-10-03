@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import React from "react";
+import "./vendor/fonts.css";
 import App from "./components/App/App";
 import { BrowserRouter } from "react-router-dom";
 import { CurrentTemperatureUnitProvider } from "./contexts/currentTemperatureUnitContext";

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Sweater">
+  <defs>
+    <linearGradient id="sw" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff9fb0"/>
+      <stop offset="1" stop-color="#e2506a"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="#e8e8e8"/>
+  <g transform="translate(20 34) scale(0.8)">
+  <path d="M66 50 L84 44 Q100 58 116 44 L134 50 L170 112 L146 128 L136 108 L136 160 L64 160 L64 108 L54 128 L30 112 Z" fill="url(#sw)"/>
+  <path d="M84 44 Q100 60 116 44 L116 54 Q100 70 84 54 Z" fill="#b93a52"/>
+  <rect x="64" y="148" width="72" height="14" rx="3" fill="#b93a52"/>
+  <path d="M30 112 L54 128 L47 140 L23 124 Z" fill="#b93a52"/>
+  <path d="M170 112 L146 128 L153 140 L177 124 Z" fill="#b93a52"/>
+  <g stroke="#ffffff" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round">
+    <path d="M78 84 V140"/><path d="M92 86 V140"/><path d="M108 86 V140"/><path d="M122 84 V140"/>
+  </g>
+  </g>
+</svg>

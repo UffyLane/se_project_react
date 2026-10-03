@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Raincoat">
+  <defs>
+    <linearGradient id="rc" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe066"/>
+      <stop offset="1" stop-color="#f4a21d"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="#e8e8e8"/>
+  <g transform="translate(20 36) scale(0.8)">
+  <path d="M64 74 Q66 14 100 14 Q134 14 136 74 Z" fill="#d98a10"/>
+  <path d="M68 58 L82 66 Q100 80 118 66 L132 58 L156 70 L172 134 L148 144 L140 112 L140 176 L60 176 L60 112 L52 144 L28 134 L44 70 Z" fill="url(#rc)"/>
+  <path d="M100 74 V176" stroke="#b36b00" stroke-width="3"/>
+  <g fill="#b36b00"><circle cx="90" cy="100" r="4"/><circle cx="110" cy="100" r="4"/><circle cx="90" cy="126" r="4"/><circle cx="110" cy="126" r="4"/></g>
+  <rect x="66" y="144" width="22" height="16" rx="3" fill="#d98a10"/>
+  <rect x="112" y="144" width="22" height="16" rx="3" fill="#d98a10"/>
+  </g>
+</svg>

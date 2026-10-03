@@ -36,6 +36,8 @@ import { coordinates, apiKey } from "../../utils/constants";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
+  // "loading" | "ready" | "error" — so screens can tell "not loaded yet" from "0 degrees"
+  const [weatherStatus, setWeatherStatus] = useState("loading");
   const [clothingItems, setClothingItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
@@ -107,8 +109,14 @@ function App() {
     const loadWeather = (coords) => {
       getWeather(coords, apiKey)
         .then(filterWeatherData)
-        .then(setWeatherData)
-        .catch(console.error);
+        .then((data) => {
+          setWeatherData(data);
+          setWeatherStatus("ready");
+        })
+        .catch((err) => {
+          console.error(err);
+          setWeatherStatus("error");
+        });
     };
 
     navigator.geolocation.getCurrentPosition(
@@ -239,6 +247,7 @@ function App() {
               element={
                 <Main
                   weatherData={safeWeather}
+                  weatherStatus={weatherStatus}
                   clothingItems={clothingItems}
                   handleCardClick={setSelectedItem}
                   onCardLike={handleCardLike}
@@ -247,6 +256,8 @@ function App() {
                     setIsConfirmDeleteOpen(true);
                   }}
                   isLoggedIn={isLoggedIn}
+                  onLogInClick={() => setIsLoginModalOpen(true)}
+                  onSignUpClick={() => setIsSignupModalOpen(true)}
                 />
               }
             />

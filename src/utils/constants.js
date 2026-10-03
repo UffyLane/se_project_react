@@ -94,7 +94,7 @@ export const defaultClothingItems = [
     _id: 8,
     name: "Raincoat",
     weather: "cold",
-    imageUrl: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Raincoat.png",
+    imageUrl: new URL("../assets/sample/raincoat.svg", import.meta.url).href,
   },
   {
     id: 9,
@@ -150,7 +150,7 @@ export const defaultClothingItems = [
     _id: 17,
     name: "Sweater",
     weather: "warm",
-    imageUrl: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweater.png",
+    imageUrl: new URL("../assets/sample/sweater.svg", import.meta.url).href,
   },
 ];
 

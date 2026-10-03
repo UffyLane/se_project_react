@@ -1,0 +1,82 @@
+.how {
+  margin: 28px 40px 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+}
+
+.how__steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.how__step {
+  position: relative;
+  padding: 24px 22px 22px;
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.how__icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #000;
+  color: #fff;
+}
+
+.how__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.how__number {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+}
+
+.how__title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #000;
+}
+
+.how__description {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #4b5563;
+}
+
+@media screen and (max-width: 1024px) {
+  .how {
+    margin: 24px 24px 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .how {
+    margin: 16px 16px 0;
+  }
+
+  .how__steps {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
